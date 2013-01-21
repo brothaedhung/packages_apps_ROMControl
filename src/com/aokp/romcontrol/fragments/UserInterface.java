@@ -333,6 +333,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                         Toast.LENGTH_LONG).show();
             }
             return true;
+        } else if (preference == mCustomBootAnimation) {
+            openBootAnimationDialog();
+            return true;
         } else if (preference == mDualpane) {
             Settings.System.putBoolean(mContext.getContentResolver(),
                     Settings.System.FORCE_DUAL_PANEL,
