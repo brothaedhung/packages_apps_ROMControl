@@ -186,9 +186,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 Settings.System.RAM_USAGE_BAR, false));
 
         mShowActionOverflow = (CheckBoxPreference) findPreference(PREF_SHOW_OVERFLOW);
-        mShowActionOverflow.setChecked((Settings.System.getInt(getActivity().
+        mShowActionOverflow.setChecked(Settings.System.getBoolean(getActivity().
                         getApplicationContext().getContentResolver(),
-                        Settings.System.UI_FORCE_OVERFLOW_BUTTON, 0) == 1));
+                        Settings.System.UI_FORCE_OVERFLOW_BUTTON, false));
 
         mKillAppLongpressBack = (CheckBoxPreference) findPreference(PREF_KILL_APP_LONGPRESS_BACK);
                 updateKillAppLongpressBackOptions();
@@ -295,8 +295,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             return true;
         } else if (preference == mShowActionOverflow) {
             boolean enabled = mShowActionOverflow.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.UI_FORCE_OVERFLOW_BUTTON,
-                    enabled ? 1 : 0);
+            Settings.System.putBoolean(getContentResolver(), Settings.System.UI_FORCE_OVERFLOW_BUTTON,
+                    enabled ? true : false);
             // Show toast appropriately
             if (enabled) {
                 Toast.makeText(getActivity(), R.string.show_overflow_toast_enable,
