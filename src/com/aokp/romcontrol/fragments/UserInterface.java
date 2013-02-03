@@ -87,6 +87,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
     private static final String PREF_SHOW_OVERFLOW = "show_overflow";
     private static final String PREF_VIBRATE_NOTIF_EXPAND = "vibrate_notif_expand";
+    private static final String PREF_LONGPRESS_TO_KILL = "longpress_to_kill";
     private static final String PREF_RECENT_KILL_ALL = "recent_kill_all";
     private static final String PREF_RAM_USAGE_BAR = "ram_usage_bar";
     private static final String PREF_KILL_APP_LONGPRESS_BACK = "kill_app_longpress_back";
@@ -119,6 +120,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     TextView error;
     CheckBoxPreference mShowActionOverflow;
     CheckBoxPreference mVibrateOnExpand;
+    CheckBoxPreference mLongPressToKill;
     CheckBoxPreference mRecentKillAll;
     CheckBoxPreference mRamBar;
     CheckBoxPreference mKillAppLongpressBack;
@@ -194,6 +196,15 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 Settings.System.VIBRATE_NOTIF_EXPAND, true));
         if (!hasVibration) {
             ((PreferenceGroup)findPreference("notification")).removePreference(mVibrateOnExpand);
+        }
+
+        boolean hasHardwareButtons = mContext.getResources().getBoolean(
+                R.bool.has_hardware_buttons);
+        mLongPressToKill = (CheckBoxPreference)findPreference(PREF_LONGPRESS_TO_KILL);
+        mLongPressToKill.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.KILL_APP_LONGPRESS_BACK, 0) == 1);
+        if (!hasHardwareButtons) {
+            ((PreferenceGroup)findPreference("navbar")).removePreference(mLongPressToKill);
         }
 
         mRecentKillAll = (CheckBoxPreference) findPreference(PREF_RECENT_KILL_ALL);
@@ -487,6 +498,12 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.VIBRATE_NOTIF_EXPAND,
                     ((CheckBoxPreference) preference).isChecked());
             Helpers.restartSystemUI();
+            return true;
+        } else if (preference == mLongPressToKill) {
+
+            boolean checked = ((CheckBoxPreference) preference).isChecked();
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.KILL_APP_LONGPRESS_BACK, checked ? 1 : 0);
             return true;
         } else if (preference == mRecentKillAll) {
             boolean checked = ((CheckBoxPreference) preference).isChecked();
