@@ -62,6 +62,11 @@
             android:summary="@string/brightness_slider_summary" />
 
         <CheckBoxPreference
+            android:key="statusbar_hidden"
+            android:title="@string/statusbar_hide_title"
+            android:summary="@string/statusbar_hide_summary" />
+
+        <CheckBoxPreference
             android:key="ime_switcher"
             android:title="@string/ime_switcher_title"
             android:summary="@string/ime_switcher_summary"
