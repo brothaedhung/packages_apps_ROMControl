@@ -128,7 +128,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     ListPreference mUserModeUI;
     CheckBoxPreference mHideExtras;
     CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
-    CheckBoxPreference mStatusBarHide;
     CheckBoxPreference mDualpane;
     CheckBoxPreference mStatusBarHide;
 
@@ -214,9 +213,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mHideExtras.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
                 Settings.System.HIDE_EXTRAS_SYSTEM_BAR, false));
 
-        mNavBarAlpha = (SeekBarPreference) findPreference("navigation_bar_alpha");
-        mNavBarAlpha.setOnPreferenceChangeListener(this);
-        
         mStatusBarHide = (CheckBoxPreference) findPreference(STATUSBAR_HIDDEN);
         mStatusBarHide.setChecked(Settings.System.getBoolean(cr,
                 Settings.System.STATUSBAR_HIDDEN, false));
