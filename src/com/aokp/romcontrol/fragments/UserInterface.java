@@ -192,6 +192,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mVibrateOnExpand = (CheckBoxPreference) findPreference(PREF_VIBRATE_NOTIF_EXPAND);
         mVibrateOnExpand.setChecked(Settings.System.getBoolean(cr,
                 Settings.System.VIBRATE_NOTIF_EXPAND, true));
+        if (!hasVibration) {
+            ((PreferenceGroup)findPreference("notification")).removePreference(mVibrateOnExpand);
+        }
 
         mRecentKillAll = (CheckBoxPreference) findPreference(PREF_RECENT_KILL_ALL);
         mRecentKillAll.setChecked(Settings.System.getBoolean(cr,
