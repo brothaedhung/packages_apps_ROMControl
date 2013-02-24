@@ -955,7 +955,8 @@ s will display</string>
     <!-- Custom -->
     <string name="performance">IceCold Custom Settings</string>
     <string name="title_performance">Custom Settings</string>
-    <string name="tab_cpu_settings">"Swipe2Wake"</string>
+    <string name="tab_cpu_settings">"You want it, we got it!!"</string>
     <string name="swipe2wake">Swipe2Wake</string>
+    <string name="gpu_oc">GPU OC</string>
 
 </resources>

@@ -70,6 +70,15 @@ public class BootService extends Service {
             cmd.su.runWaitFor("busybox echo " + swipe2waketemp + 
                 " > " + CPUSettings.SWIPE2WAKE_PATH);
 
+            final String gpu_octemp = preferences.getBoolean(
+                CPUSettings.GPU_OC, false)?"1":"0";
+
+            if (gpu_octemp == "1") {
+                     cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_on");
+                } else {
+                     cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_off");
+            }
+
             return null;
         }
 

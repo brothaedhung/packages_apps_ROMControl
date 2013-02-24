@@ -46,8 +46,11 @@ public class CPUSettings extends Fragment {
 
     public static final String SWIPE2WAKE_PATH = "/sys/android_touch/sweep2wake";
     public static final String SWIPE2WAKE = "swipe2wake";
+    public static final String GPU_OC_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/gpu_oc";
+    public static final String GPU_OC = "gpu_oc";
 
     private Switch mSwipe2Wake;
+    private Switch mGpuOc;
     private Activity mActivity;
 
     private static SharedPreferences preferences;
@@ -71,6 +74,29 @@ public class CPUSettings extends Fragment {
 
                 CMDProcessor cmd = new CMDProcessor();
                     cmd.su.runWaitFor("busybox echo " + (checked?"1":"0") + " > " + SWIPE2WAKE_PATH);
+            }
+        });
+
+        mGpuOc = (Switch) view.findViewById(R.id.gpu_oc);
+        mGpuOc.setChecked(preferences.getBoolean(GPU_OC, false));
+        mGpuOc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton v, boolean checked) {
+                final SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(GPU_OC, checked);
+                editor.commit();
+
+                final String gpu_ocscript = preferences.getBoolean(
+                GPU_OC, false)?"1":"0";
+
+                if (gpu_ocscript == "1") {
+                    CMDProcessor cmd = new CMDProcessor();
+                        cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_on");
+                } 
+                if (gpu_ocscript == "0") {
+                     CMDProcessor cmd = new CMDProcessor();
+                        cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_off");
+                }
             }
         });
 		
