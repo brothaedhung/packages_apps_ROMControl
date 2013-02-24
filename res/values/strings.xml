@@ -39,7 +39,6 @@
     <string name="title_navring">Navigation Ring</string>
     <string name="title_sound">Sound Settings</string>
     <string name="title_weather">Weather Settings</string>
-    <string name="title_performance">Performance Settings</string>
     <string name="title_clipboard_share">Share to Clipboard</string>
 
     <!-- Header Summaries -->
@@ -952,5 +951,11 @@ s will display</string>
     <!-- haptic feedback on toggle press -->
     <string name="toggles_enable_haptic_feedback_title">Enable haptic feedback</string>
     <string name="toggles_enable_haptic_feedback_summary">Use haptic feedback when pressing toggles</string>
+
+    <!-- Custom -->
+    <string name="performance">IceCold Custom Settings</string>
+    <string name="title_performance">Custom Settings</string>
+    <string name="tab_cpu_settings">"Swipe2Wake"</string>
+    <string name="swipe2wake">Swipe2Wake</string>
 
 </resources>
