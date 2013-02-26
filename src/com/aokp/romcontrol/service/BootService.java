@@ -64,12 +64,14 @@ public class BootService extends Service {
                     || FlipService.getUserCallSilent(c) != 0)
                 c.startService(new Intent(c, FlipService.class));
 
+            // Swipe2Wake
             final String swipe2waketemp = preferences.getBoolean(
                 CPUSettings.SWIPE2WAKE, false)?"1":"0";
 
             cmd.su.runWaitFor("busybox echo " + swipe2waketemp + 
                 " > " + CPUSettings.SWIPE2WAKE_PATH);
 
+            // GPU OC
             final String gpu_octemp = preferences.getBoolean(
                 CPUSettings.GPU_OC, false)?"1":"0";
 
@@ -78,6 +80,13 @@ public class BootService extends Service {
                 } else {
                      cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_off");
             }
+
+            // Smartdimmer
+            final String smartdimmertemp = preferences.getBoolean(
+                CPUSettings.SMARTDIMMER, false)?"1":"0";
+
+            cmd.su.runWaitFor("busybox echo " + smartdimmertemp + 
+                " > " + CPUSettings.SMARTDIMMER_PATH);
 
             return null;
         }
