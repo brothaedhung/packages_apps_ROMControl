@@ -82,12 +82,13 @@ public class BootService extends Service {
                      cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_off");
             }
 
-            // Smartdimmer
+/*            // Smartdimmer
             final String smartdimmertemp = preferences.getBoolean(
                 CPUSettings.SMARTDIMMER, false)?"1":"0";
 
             cmd.su.runWaitFor("busybox echo " + smartdimmertemp + 
                 " > " + CPUSettings.SMARTDIMMER_PATH);
+*/
 
             return null;
         }

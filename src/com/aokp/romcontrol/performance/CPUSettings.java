@@ -106,7 +106,7 @@ public class CPUSettings extends Fragment {
             }
         });
 
-        // Smartdimmer
+/*        // Smartdimmer
         mSmartDimmer = (Switch) view.findViewById(R.id.smartdimmer);
         mSmartDimmer.setChecked(preferences.getBoolean(SMARTDIMMER, false));
         mSmartDimmer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -120,6 +120,7 @@ public class CPUSettings extends Fragment {
                     cmd.su.runWaitFor("busybox echo " + (checked?"1":"0") + " > " + SMARTDIMMER_PATH);
             }
         });
+*/
 		
         return view;
     }
