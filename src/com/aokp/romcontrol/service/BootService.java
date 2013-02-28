@@ -64,12 +64,13 @@ public class BootService extends Service {
                     || FlipService.getUserCallSilent(c) != 0)
                 c.startService(new Intent(c, FlipService.class));
 
-            // Swipe2Wake
+/*            // Swipe2Wake
             final String swipe2waketemp = preferences.getBoolean(
                 CPUSettings.SWIPE2WAKE, false)?"1":"0";
 
             cmd.su.runWaitFor("busybox echo " + swipe2waketemp + 
                 " > " + CPUSettings.SWIPE2WAKE_PATH);
+*/
 
             // GPU OC
             final String gpu_octemp = preferences.getBoolean(

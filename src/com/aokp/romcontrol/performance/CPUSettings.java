@@ -66,7 +66,7 @@ public class CPUSettings extends Fragment {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
 
-        // Swipe2Wake
+/*        // Swipe2Wake
         mSwipe2Wake = (Switch) view.findViewById(R.id.swipe2wake);
         mSwipe2Wake.setChecked(preferences.getBoolean(SWIPE2WAKE, false));
         mSwipe2Wake.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -80,6 +80,7 @@ public class CPUSettings extends Fragment {
                     cmd.su.runWaitFor("busybox echo " + (checked?"1":"0") + " > " + SWIPE2WAKE_PATH);
             }
         });
+*/
 
         // GPU OC
         mGpuOc = (Switch) view.findViewById(R.id.gpu_oc);
