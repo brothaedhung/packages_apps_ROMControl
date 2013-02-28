@@ -963,8 +963,9 @@ s will display</string>
     <string name="performance">IceCold Custom Settings</string>
     <string name="title_performance">Custom Settings</string>
     <string name="tab_cpu_settings">"You want it, we got it!!"</string>
-    <string name="swipe2wake">Swipe2Wake</string>
+<!--    <string name="swipe2wake">Swipe2Wake</string> -->
     <string name="gpu_oc">GPU OC</string>
-    <string name="smartdimmer">Smartdimmer</string>
+<!--    <string name="smartdimmer">Smartdimmer</string> -->
+    <string name="semdocwife">Semdoc\'s wife</string>
 
 </resources>

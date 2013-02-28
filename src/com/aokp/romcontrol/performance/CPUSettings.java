@@ -50,10 +50,12 @@ public class CPUSettings extends Fragment {
     public static final String GPU_OC = "gpu_oc";
     public static final String SMARTDIMMER_PATH = "/sys/devices/tegradc.0/smartdimmer/enable";
     public static final String SMARTDIMMER = "smartdimmer";
+    public static final String SEMDOCWIFE = "semdocwife";
 
     private Switch mSwipe2Wake;
     private Switch mGpuOc;
     private Switch mSmartDimmer;
+    private Switch mSemdocWife;
     private Activity mActivity;
 
     private static SharedPreferences preferences;
@@ -121,6 +123,10 @@ public class CPUSettings extends Fragment {
             }
         });
 */
+
+        // Mrs. Semdoc
+        mSemdocWife = (Switch) view.findViewById(R.id.semdocwife);
+        mSemdocWife.setChecked(preferences.getBoolean(SEMDOCWIFE, false));
 		
         return view;
     }
