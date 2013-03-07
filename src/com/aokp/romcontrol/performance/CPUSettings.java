@@ -44,17 +44,20 @@ public class CPUSettings extends Fragment {
 
     public static final String TAG = "CPUSettings";
 
-    public static final String SWIPE2WAKE_PATH = "/sys/android_touch/sweep2wake";
-    public static final String SWIPE2WAKE = "swipe2wake";
+//    public static final String SWIPE2WAKE_PATH = "/sys/android_touch/sweep2wake";
+//    public static final String SWIPE2WAKE = "swipe2wake";
     public static final String GPU_OC_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/gpu_oc";
     public static final String GPU_OC = "gpu_oc";
-    public static final String SMARTDIMMER_PATH = "/sys/devices/tegradc.0/smartdimmer/enable";
-    public static final String SMARTDIMMER = "smartdimmer";
+    public static final String AUDIOFREQ_PATH = "/sys/module/snd_soc_tlv320aic3008/parameters/audio_min_freq";
+    public static final String AUDIOFREQ = "audiofreq";
+//    public static final String SMARTDIMMER_PATH = "/sys/devices/tegradc.0/smartdimmer/enable";
+//    public static final String SMARTDIMMER = "smartdimmer";
     public static final String SEMDOCWIFE = "semdocwife";
 
-    private Switch mSwipe2Wake;
+//    private Switch mSwipe2Wake;
     private Switch mGpuOc;
-    private Switch mSmartDimmer;
+    private Switch mAudioFreq;
+//    private Switch mSmartDimmer;
     private Switch mSemdocWife;
     private Activity mActivity;
 
@@ -105,6 +108,21 @@ public class CPUSettings extends Fragment {
                      CMDProcessor cmd = new CMDProcessor();
                         cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_off");
                 }
+            }
+        });
+
+        // Audio frequency
+        mAudioFreq = (Switch) view.findViewById(R.id.audiofreq);
+        mAudioFreq.setChecked(preferences.getBoolean(AUDIOFREQ, false));
+        mAudioFreq.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton v, boolean checked) {
+                final SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(AUDIOFREQ, checked);
+                editor.commit();
+
+                CMDProcessor cmd = new CMDProcessor();
+                    cmd.su.runWaitFor("busybox echo " + (checked?"204000":"51000") + " > " + AUDIOFREQ_PATH);
             }
         });
 

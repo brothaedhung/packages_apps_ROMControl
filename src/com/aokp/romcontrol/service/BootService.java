@@ -82,6 +82,13 @@ public class BootService extends Service {
                      cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_off");
             }
 
+            // Increase min audio freq
+            final String audiofreqtemp = preferences.getBoolean(
+                CPUSettings.AUDIOFREQ, false)?"204000":"51000";
+
+            cmd.su.runWaitFor("busybox echo " + audiofreqtemp + 
+                " > " + CPUSettings.AUDIOFREQ_PATH);
+
 /*            // Smartdimmer
             final String smartdimmertemp = preferences.getBoolean(
                 CPUSettings.SMARTDIMMER, false)?"1":"0";
