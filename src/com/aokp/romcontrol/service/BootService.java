@@ -82,6 +82,22 @@ public class BootService extends Service {
                      cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_off");
             }
 
+            // ZRAM
+            final String zram_temp = preferences.getBoolean(
+                CPUSettings.ZRAM, false)?"1":"0";
+
+            if (zram_temp == "1") {
+                        cmd.su.runWaitFor("busybox mount -o remount,rw /system");
+                        cmd.su.runWaitFor("busybox sh /system/etc/90zramSH");
+                        cmd.su.runWaitFor("busybox cp -f /system/etc/90zram /system/etc/init.d/90zram");
+                        cmd.su.runWaitFor("busybox chmod 755 /system/etc/init.d/90zram");
+                        cmd.su.runWaitFor("busybox mount -o remount,ro /system");
+                } else {
+                        cmd.su.runWaitFor("busybox mount -o remount,rw /system");
+                        cmd.su.runWaitFor("busybox rm -f /system/etc/init.d/90zram");
+                        cmd.su.runWaitFor("busybox mount -o remount,ro /system");
+            }
+
             // Increase min audio freq
             final String audiofreqtemp = preferences.getBoolean(
                 CPUSettings.AUDIOFREQ, false)?"204000":"51000";

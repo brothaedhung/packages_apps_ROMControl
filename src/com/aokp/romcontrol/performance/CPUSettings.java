@@ -50,6 +50,7 @@ public class CPUSettings extends Fragment {
     public static final String GPU_OC = "gpu_oc";
     public static final String AUDIOFREQ_PATH = "/sys/module/snd_soc_tlv320aic3008/parameters/audio_min_freq";
     public static final String AUDIOFREQ = "audiofreq";
+    public static final String ZRAM = "zram";
 //    public static final String SMARTDIMMER_PATH = "/sys/devices/tegradc.0/smartdimmer/enable";
 //    public static final String SMARTDIMMER = "smartdimmer";
     public static final String SEMDOCWIFE = "semdocwife";
@@ -57,6 +58,7 @@ public class CPUSettings extends Fragment {
 //    private Switch mSwipe2Wake;
     private Switch mGpuOc;
     private Switch mAudioFreq;
+    private Switch mZram;
 //    private Switch mSmartDimmer;
     private Switch mSemdocWife;
     private Activity mActivity;
@@ -123,6 +125,36 @@ public class CPUSettings extends Fragment {
 
                 CMDProcessor cmd = new CMDProcessor();
                     cmd.su.runWaitFor("busybox echo " + (checked?"204000":"51000") + " > " + AUDIOFREQ_PATH);
+            }
+        });
+
+        // ZRAM
+        mZram = (Switch) view.findViewById(R.id.zram);
+        mZram.setChecked(preferences.getBoolean(ZRAM, false));
+        mZram.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton v, boolean checked) {
+                final SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(ZRAM, checked);
+                editor.commit();
+
+                final String zram_script = preferences.getBoolean(
+                ZRAM, false)?"1":"0";
+
+                if (zram_script == "1") {
+                    CMDProcessor cmd = new CMDProcessor();
+                        cmd.su.runWaitFor("busybox mount -o remount,rw /system");
+                        cmd.su.runWaitFor("busybox sh /system/etc/90zramSH");
+                        cmd.su.runWaitFor("busybox cp -f /system/etc/90zram /system/etc/init.d/90zram");
+                        cmd.su.runWaitFor("busybox chmod 755 /system/etc/init.d/90zram");
+                        cmd.su.runWaitFor("busybox mount -o remount,ro /system");
+                } 
+                if (zram_script == "0") {
+                     CMDProcessor cmd = new CMDProcessor();
+                        cmd.su.runWaitFor("busybox mount -o remount,rw /system");
+                        cmd.su.runWaitFor("busybox rm -f /system/etc/init.d/90zram");
+                        cmd.su.runWaitFor("busybox mount -o remount,ro /system");
+                }
             }
         });
 
