@@ -91,7 +91,7 @@ public class CPUSettings extends Fragment {
 
         // GPU OC
         mGpuOc = (Switch) view.findViewById(R.id.gpu_oc);
-        mGpuOc.setChecked(preferences.getBoolean(GPU_OC, false));
+        mGpuOc.setChecked(preferences.getBoolean(GPU_OC, true));
         mGpuOc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton v, boolean checked) {
@@ -100,7 +100,7 @@ public class CPUSettings extends Fragment {
                 editor.commit();
 
                 final String gpu_ocscript = preferences.getBoolean(
-                GPU_OC, false)?"1":"0";
+                GPU_OC, true)?"1":"0";
 
                 if (gpu_ocscript == "1") {
                     CMDProcessor cmd = new CMDProcessor();

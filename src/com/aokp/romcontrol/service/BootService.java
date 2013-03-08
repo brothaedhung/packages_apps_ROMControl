@@ -74,7 +74,7 @@ public class BootService extends Service {
 
             // GPU OC
             final String gpu_octemp = preferences.getBoolean(
-                CPUSettings.GPU_OC, false)?"1":"0";
+                CPUSettings.GPU_OC, true)?"1":"0";
 
             if (gpu_octemp == "1") {
                      cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_on");
