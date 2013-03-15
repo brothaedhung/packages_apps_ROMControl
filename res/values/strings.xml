@@ -1008,6 +1008,10 @@ s will display</string>
 
     <!-- Status bar notification icon opacity -->
     <string name="status_bar_icon_opacity">Notification icon opacity</string>
-    <string name="status_bar_icon_opacity_summary">Sets opacity of status bar notification icons</string> 
+    <string name="status_bar_icon_opacity_summary">Sets opacity of status bar notification icons</string>
+
+    <!-- Breathing Missed call -->
+    <string name="missed_call_breath">Breathing Missed Call</string>
+    <string name="missed_call_breath_summary">Will give your missed call notifications a breathing effect on the statusbar.</string>
 
 </resources>

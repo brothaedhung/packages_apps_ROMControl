@@ -102,7 +102,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_MISC = "misc";
     private static final CharSequence PREF_POWER_CRT_MODE = "system_power_crt_mode";
     private static final CharSequence PREF_POWER_CRT_SCREEN_OFF = "system_power_crt_screen_off";
-    private static final String KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity"; 
+    private static final String KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity";
+    private static final String KEY_MISSED_CALL_BREATH = "missed_call_breath";
 
     private static final int REQUEST_PICK_WALLPAPER = 201;
     //private static final int REQUEST_PICK_CUSTOM_ICON = 202; //unused
@@ -135,7 +136,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mDualpane;
     ListPreference mCrtMode;
     CheckBoxPreference mCrtOff;
-    ListPreference mStatusBarIconOpacity; 
+    ListPreference mStatusBarIconOpacity;
+    private CheckBoxPreference mMissedCallBreath;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -264,6 +266,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, 140);
         mStatusBarIconOpacity.setValue(String.valueOf(iconOpacity));
         mStatusBarIconOpacity.setOnPreferenceChangeListener(this);
+
+        mMissedCallBreath = (CheckBoxPreference) findPreference(KEY_MISSED_CALL_BREATH);
+        mMissedCallBreath.setChecked(Settings.System.getBoolean(mContentResolver,
+                Settings.System.MISSED_CALL_BREATH, false));
 
         // hide option if device is already set to never wake up
         if(!mContext.getResources().getBoolean(
@@ -518,6 +524,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         } else if (preference == mCrtOff) {
             Settings.System.putBoolean(mContentResolver,
                     Settings.System.SYSTEM_POWER_ENABLE_CRT_OFF,
+                    ((TwoStatePreference) preference).isChecked());
+            return true;
+        } else if (preference == mMissedCallBreath) {
+            Settings.System.putBoolean(mContentResolver,
+                    Settings.System.MISSED_CALL_BREATH, 
                     ((TwoStatePreference) preference).isChecked());
             return true;
         }

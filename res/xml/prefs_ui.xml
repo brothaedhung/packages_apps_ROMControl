@@ -70,6 +70,12 @@
             android:entryValues="@array/status_bar_icon_opacity_values"
             android:defaultValue="140" />
 
+        <CheckBoxPreference
+            android:key="missed_call_breath"
+            android:title="@string/missed_call_breath"
+            android:summary="@string/missed_call_breath_summary"
+            android:defaultValue="false" /> 
+
     </PreferenceCategory>
 
     <PreferenceCategory
