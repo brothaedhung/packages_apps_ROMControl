@@ -61,6 +61,15 @@
             android:key="transparency_dialog"
             android:title="@string/transparency_dialog_title" />
 
+        <ListPreference
+            android:key="status_bar_icon_opacity"
+            android:dialogTitle="@string/status_bar_icon_opacity"
+            android:title="@string/status_bar_icon_opacity"
+            android:summary="@string/status_bar_icon_opacity_summary"
+            android:entries="@array/status_bar_icon_opacity_entries"
+            android:entryValues="@array/status_bar_icon_opacity_values"
+            android:defaultValue="140" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -124,15 +133,6 @@
             android:title="@string/wakeup_when_plugged_unplugged_title"
             android:summary="@string/wakeup_when_plugged_unplugged_summary"
             android:defaultValue="true" />
-
-        <ListPreference
-            android:key="status_bar_icon_opacity"
-            android:dialogTitle="@string/status_bar_icon_opacity"
-            android:title="@string/status_bar_icon_opacity"
-            android:summary="@string/status_bar_icon_opacity_summary"
-            android:entries="@array/status_bar_icon_opacity_entries"
-            android:entryValues="@array/status_bar_icon_opacity_values"
-            android:defaultValue="140" />
 
         <CheckBoxPreference
             android:key="system_power_crt_screen_off"
