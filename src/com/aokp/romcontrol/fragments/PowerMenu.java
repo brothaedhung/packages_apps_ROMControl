@@ -20,6 +20,7 @@ public class PowerMenu extends AOKPPreferenceFragment {
     private static final String PREF_AIRPLANE_TOGGLE = "show_airplane_toggle";
     private static final String PREF_NAVBAR_HIDE = "show_navbar_hide";
     private static final String PREF_REBOOT_KEYGUARD = "show_reboot_keyguard";
+    private static final String KEY_EXPANDED_DESKTOP = "power_menu_expanded_desktop";
 
     //CheckBoxPreference mShowPowerSaver;
     CheckBoxPreference mShowScreenShot;
@@ -27,6 +28,7 @@ public class PowerMenu extends AOKPPreferenceFragment {
     CheckBoxPreference mShowAirplaneToggle;
     CheckBoxPreference mShowNavBarHide;
     CheckBoxPreference mShowRebootKeyguard;
+    private CheckBoxPreference mExpandedDesktopPref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,18 @@ public class PowerMenu extends AOKPPreferenceFragment {
         mShowRebootKeyguard = (CheckBoxPreference) findPreference(PREF_REBOOT_KEYGUARD);
         mShowRebootKeyguard.setChecked(Settings.System.getBoolean(mContentRes,
                 Settings.System.POWER_DIALOG_SHOW_REBOOT_KEYGUARD, true));
+
+        mExpandedDesktopPref = (CheckBoxPreference) findPreference(KEY_EXPANDED_DESKTOP);
+        boolean showExpandedDesktopPref =
+            getResources().getBoolean(R.bool.config_show_expandedDesktop);
+        if (!showExpandedDesktopPref) {
+            if (mExpandedDesktopPref != null) {
+                getPreferenceScreen().removePreference(mExpandedDesktopPref);
+            }
+        } else {
+            mExpandedDesktopPref.setChecked((Settings.System.getBoolean(mContentRes,
+                Settings.System.POWER_MENU_EXPANDED_DESKTOP_ENABLED, false)));
+        }
     }
 
     @Override
@@ -101,6 +115,10 @@ public class PowerMenu extends AOKPPreferenceFragment {
                     Settings.System.POWER_DIALOG_SHOW_REBOOT_KEYGUARD,
                     ((CheckBoxPreference)preference).isChecked());
             return true;
+        } else if (preference == mExpandedDesktopPref) {
+            Settings.System.putBoolean(mContentRes,
+                    Settings.System.POWER_MENU_EXPANDED_DESKTOP_ENABLED,
+                    ((CheckBoxPreference)preference).isChecked());
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);

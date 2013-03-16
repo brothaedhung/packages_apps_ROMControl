@@ -78,6 +78,7 @@
     <string name="title_show_airplane_toggle">Show airplane toggle</string>
     <string name="title_show_navbar_hide">Show navigation bar toggle</string>
     <string name="title_show_reboot_keyguard">Show reboot on lockscreen</string>
+    <string name="power_menu_expanded_desktop">Expanded desktop</string>
 
     <!-- S Pen -->
     <string name="spen_left_title">Action on swipe left</string>
