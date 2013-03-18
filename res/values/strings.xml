@@ -1005,6 +1005,11 @@ s will display</string>
     <string name="zram_summary">Enables ZRAM (swap) and set it on boot. To disable it, you need to reboot also.</string>
 <!--    <string name="smartdimmer">Smartdimmer</string> -->
     <string name="semdocwife">Semdoc\'s wife</string>
+    <string name="semdocwife_summary">Turn Semdoc\'s wife ON/OFF, he\'ll be very gratefull to keep it OFF!</string>
+    <string name="steak">Steak (English)</string>
+    <string name="steak_summary">Have one Steak on the house, English tempered.</string>
+    <string name="bj">BJ (Free)</string>
+    <string name="bj_summary">Get a free BJ when ever you want.</string>
 
     <!-- Lockscreen See Through -->
     <string name="lockscreen_seethrough">Lockscreen See through</string>

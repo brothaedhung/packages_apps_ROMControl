@@ -54,6 +54,8 @@ public class CPUSettings extends Fragment {
 //    public static final String SMARTDIMMER_PATH = "/sys/devices/tegradc.0/smartdimmer/enable";
 //    public static final String SMARTDIMMER = "smartdimmer";
     public static final String SEMDOCWIFE = "semdocwife";
+    public static final String STEAK = "steak";
+    public static final String BJ = "bj";
 
 //    private Switch mSwipe2Wake;
     private Switch mGpuOc;
@@ -61,6 +63,8 @@ public class CPUSettings extends Fragment {
     private Switch mZram;
 //    private Switch mSmartDimmer;
     private Switch mSemdocWife;
+    private Switch mSteak;
+    private Switch mBj;
     private Activity mActivity;
 
     private static SharedPreferences preferences;
@@ -177,6 +181,12 @@ public class CPUSettings extends Fragment {
         // Mrs. Semdoc
         mSemdocWife = (Switch) view.findViewById(R.id.semdocwife);
         mSemdocWife.setChecked(preferences.getBoolean(SEMDOCWIFE, false));
+
+        // Steak and BJ
+        mSteak = (Switch) view.findViewById(R.id.steak);
+        mSteak.setChecked(preferences.getBoolean(STEAK, false));
+        mBj = (Switch) view.findViewById(R.id.bj);
+        mBj.setChecked(preferences.getBoolean(BJ, false));
 		
         return view;
     }
