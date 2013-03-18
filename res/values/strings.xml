@@ -44,6 +44,7 @@
     <string name="title_clipboard_share">Share to Clipboard</string>
     <string name="title_hardware_keys">Hardware Keys</string>
     <string name="title_lockscreen_buttons">Locscreen Buttons Actions</string>
+    <string name="title_xposed_settings">Xposed Framework</string>
 
     <!-- Header Summaries -->
     <string name="header_summary_clock">@null</string>
@@ -62,6 +63,7 @@
     <string name="header_summary_vibrations">@null</string>
     <string name="header_summary_hardware_keys">@null</string>
     <string name="header_summary_lockscreen_buttons">@null</string>
+    <string name="header_summary_xposed_settings">@null</string>
 
     <!-- Menu Strings -->
     <string name="menu_nav_bar_reset">Reset nav bar</string>
@@ -1138,5 +1140,17 @@ s will display</string>
     <string name="lockscreen_buttons_previous">Previous song</string>
     <string name="lockscreen_buttons_playpause">Play/Pause music</string>
     <string name="lockscreen_buttons_toggle_sound">Toggle sound</string>
+
+    <!-- Xposed -->
+    <string name="xposed_category_title">Xposed Framework</string>
+    <string name="xposed_title">Xposed</string>
+    <string name="xposed_framework_modules_title">Framework &amp; Modules</string>
+    <string name="xposed_framework_modules_summary">Xposed framework installer and module manager. Check here first!</string>
+    <string name="xposed_per_app_title">Per App Settings</string>
+    <string name="xposed_per_app__summary">Customize DPI, UI layout, and more per app settings to your liking here</string>
+    <string name="xposed_netflix_title">Netflix Workaround</string>
+    <string name="xposed_netflix_summary">Netflix workaround for Exynos4 devices on AOSP 4.2.1+ Activate module to use</string>
+    <string name="xposed_warning_title">Warning:</string>
+    <string name="xposed_warning_summary">These mods may adversely affect performance and stability. Use at your own risk!</string> 
 
 </resources>

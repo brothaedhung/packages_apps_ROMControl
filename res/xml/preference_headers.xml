@@ -139,6 +139,13 @@
         android:id="@+id/tools"
         android:title="@string/tools" />
 
+    <header
+        android:id="@+id/xposed_settings"
+        android:fragment="com.aokp.romcontrol.fragments.Xposed"
+        android:title="@string/xposed_category_title"
+        android:icon="@drawable/ic_rom_control_xposed_settings"
+        android:summary="@string/header_summary_xposed_settings" />
+
     <header android:icon="@drawable/ic_rom_control_jelly"
             android:title="@string/performance">
         <intent
