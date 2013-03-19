@@ -1120,8 +1120,8 @@ s will display</string>
     <string name="hardware_keys_action_search">Search assistant</string>
     <string name="hardware_keys_action_voice_search">Voice search</string>
     <string name="hardware_keys_action_in_app_search">In-app search</string>
-    <string name="hardware_keys_action_power">Power off</string>
-    <string name="hardware_keys_action_notifications">Notification shade toggle</string>
+    <string name="hardware_keys_action_power">Screen off</string>
+    <string name="hardware_keys_action_notifications">Notifications</string>
     <string name="hardware_keys_action_expanded">Expanded desktop toggle</string> 
     <string name="hardware_keys_action_kill_app">Kill app</string>
     <string name="hardware_keys_action_last_app">Switch to last app</string>
@@ -1140,6 +1140,8 @@ s will display</string>
     <string name="lockscreen_buttons_previous">Previous song</string>
     <string name="lockscreen_buttons_playpause">Play/Pause music</string>
     <string name="lockscreen_buttons_toggle_sound">Toggle sound</string>
+    <string name="lockscreen_buttons_camera">Launch camera</string>
+    <string name="lockscreen_buttons_power_off">Screen off</string>
 
     <!-- Xposed -->
     <string name="xposed_category_title">Xposed Framework</string>
