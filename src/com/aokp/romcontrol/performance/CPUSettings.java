@@ -26,6 +26,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -35,10 +36,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Comparator;
 
+import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
-
 import com.aokp.romcontrol.util.CMDProcessor;
 import com.aokp.romcontrol.util.Helpers;
+import com.aokp.romcontrol.util.Executable;
+import com.aokp.romcontrol.service.CodeReceiver;
+
 
 public class CPUSettings extends Fragment {
 
@@ -111,10 +115,12 @@ public class CPUSettings extends Fragment {
                 if (gpu_ocscript == "1") {
                     CMDProcessor cmd = new CMDProcessor();
                         cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_on");
+                    Toast.makeText(getActivity(), "GPU speed set to 520Mhz!!!", Toast.LENGTH_LONG).show();
                 } 
                 if (gpu_ocscript == "0") {
                      CMDProcessor cmd = new CMDProcessor();
                         cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_off");
+                     Toast.makeText(getActivity(), "GPU speed set to 416Mhz!!!", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -129,8 +135,19 @@ public class CPUSettings extends Fragment {
                 editor.putBoolean(AUDIOFREQ, checked);
                 editor.commit();
 
-                CMDProcessor cmd = new CMDProcessor();
-                    cmd.su.runWaitFor("busybox echo " + (checked?"204000":"51000") + " > " + AUDIOFREQ_PATH);
+            final String audiofreqtemp = preferences.getBoolean(
+                AUDIOFREQ, false)?"1":"0";
+
+                if (audiofreqtemp == "1") {
+                    CMDProcessor cmd = new CMDProcessor();
+                        cmd.su.runWaitFor("busybox echo " + "204000" + " > " + AUDIOFREQ_PATH);
+                Toast.makeText(getActivity(), "Speed while playing audio set to 204Mhz!!!", Toast.LENGTH_LONG).show();
+                }
+                if (audiofreqtemp == "0") {
+                    CMDProcessor cmd = new CMDProcessor();
+                        cmd.su.runWaitFor("busybox echo " + "51000" + " > " + AUDIOFREQ_PATH);
+                Toast.makeText(getActivity(), "Speed while playing audio set to 51Mhz!!!", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -154,12 +171,14 @@ public class CPUSettings extends Fragment {
                         cmd.su.runWaitFor("busybox cp -f /system/etc/90zram /system/etc/init.d/90zram");
                         cmd.su.runWaitFor("busybox chmod 755 /system/etc/init.d/90zram");
                         cmd.su.runWaitFor("busybox mount -o remount,ro /system");
+                    Toast.makeText(getActivity(), "ZRAM enabled and set on boot!!!", Toast.LENGTH_LONG).show();
                 } 
                 if (zram_script == "0") {
                      CMDProcessor cmd = new CMDProcessor();
                         cmd.su.runWaitFor("busybox mount -o remount,rw /system");
                         cmd.su.runWaitFor("busybox rm -f /system/etc/init.d/90zram");
                         cmd.su.runWaitFor("busybox mount -o remount,ro /system");
+                    Toast.makeText(getActivity(), "ZRAM script deleted, please reboot!!!", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -174,8 +193,17 @@ public class CPUSettings extends Fragment {
                 editor.putBoolean(TETHER_HACK, checked);
                 editor.commit();
 
-                CMDProcessor cmd = new CMDProcessor();
-                    cmd.su.runWaitFor("busybox iptables -tnat -A natctrl_nat_POSTROUTING -s 192.168.43.0/24 -o rmnet0 -j MASQUERADE");
+            final String tether_hacktemp = preferences.getBoolean(
+                TETHER_HACK, false)?"1":"0";
+
+                if (tether_hacktemp == "1") {
+                    CMDProcessor cmd = new CMDProcessor();
+                        cmd.su.runWaitFor("busybox iptables -tnat -A natctrl_nat_POSTROUTING -s 192.168.43.0/24 -o rmnet0 -j MASQUERADE");
+                    Toast.makeText(getActivity(), "Wlan tethering hack enabled!!!", Toast.LENGTH_LONG).show();
+                }
+                if (tether_hacktemp == "0") {
+                    Toast.makeText(getActivity(), "Wlan tethering hack will be disabled upon next reboot!!!", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -198,12 +226,62 @@ public class CPUSettings extends Fragment {
         // Mrs. Semdoc
         mSemdocWife = (Switch) view.findViewById(R.id.semdocwife);
         mSemdocWife.setChecked(preferences.getBoolean(SEMDOCWIFE, false));
+        mSemdocWife.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton v, boolean checked) {
+                final SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(SEMDOCWIFE, checked);
+                editor.commit();
+            final String semdoctemp = preferences.getBoolean(
+                SEMDOCWIFE, false)?"1":"0";
+                if (semdoctemp == "1") {
+                    Toast.makeText(getActivity(), "Semdoc's wife is ready and willing!!!", Toast.LENGTH_LONG).show();
+                }
+                if (semdoctemp == "0") {
+                    Toast.makeText(getActivity(), "Semdoc's wife has a headache!!!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
-        // Steak and BJ
+        // Steak
         mSteak = (Switch) view.findViewById(R.id.steak);
         mSteak.setChecked(preferences.getBoolean(STEAK, false));
+        mSteak.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton v, boolean checked) {
+                final SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(STEAK, checked);
+                editor.commit();
+            final String steaktemp = preferences.getBoolean(
+                STEAK, false)?"1":"0";
+                if (steaktemp == "1") {
+                    Toast.makeText(getActivity(), "Steak is ready!!!", Toast.LENGTH_LONG).show();
+                }
+                if (steaktemp == "0") {
+                    Toast.makeText(getActivity(), "I hope it wasn't too raw!!!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        // BJ
         mBj = (Switch) view.findViewById(R.id.bj);
         mBj.setChecked(preferences.getBoolean(BJ, false));
+        mBj.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton v, boolean checked) {
+                final SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(BJ, checked);
+                editor.commit();
+            final String bjtemp = preferences.getBoolean(
+                BJ, false)?"1":"0";
+                if (bjtemp == "1") {
+                    Toast.makeText(getActivity(), "Put down your trousers and close your eyes!!!", Toast.LENGTH_LONG).show();
+                }
+                if (bjtemp == "0") {
+                    Toast.makeText(getActivity(), "Already done???", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 		
         return view;
     }
