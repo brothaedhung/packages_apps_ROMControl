@@ -105,6 +105,14 @@ public class BootService extends Service {
             cmd.su.runWaitFor("busybox echo " + audiofreqtemp + 
                 " > " + CPUSettings.AUDIOFREQ_PATH);
 
+            // Wlan Tether hack
+            final String tetherhacktemp = preferences.getBoolean(
+                CPUSettings.TETHER_HACK, false)?"1":"0";
+
+            if (tetherhacktemp == "1") {
+                cmd.su.runWaitFor("busybox iptables -tnat -A natctrl_nat_POSTROUTING -s 192.168.43.0/24 -o rmnet0 -j MASQUERADE");
+            }
+
 /*            // Smartdimmer
             final String smartdimmertemp = preferences.getBoolean(
                 CPUSettings.SMARTDIMMER, false)?"1":"0";

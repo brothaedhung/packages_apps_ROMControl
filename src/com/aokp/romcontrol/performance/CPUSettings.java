@@ -51,6 +51,7 @@ public class CPUSettings extends Fragment {
     public static final String AUDIOFREQ_PATH = "/sys/module/snd_soc_tlv320aic3008/parameters/audio_min_freq";
     public static final String AUDIOFREQ = "audiofreq";
     public static final String ZRAM = "zram";
+    public static final String TETHER_HACK = "tether_hack";
 //    public static final String SMARTDIMMER_PATH = "/sys/devices/tegradc.0/smartdimmer/enable";
 //    public static final String SMARTDIMMER = "smartdimmer";
     public static final String SEMDOCWIFE = "semdocwife";
@@ -61,6 +62,7 @@ public class CPUSettings extends Fragment {
     private Switch mGpuOc;
     private Switch mAudioFreq;
     private Switch mZram;
+    private Switch mTetherHack;
 //    private Switch mSmartDimmer;
     private Switch mSemdocWife;
     private Switch mSteak;
@@ -159,6 +161,21 @@ public class CPUSettings extends Fragment {
                         cmd.su.runWaitFor("busybox rm -f /system/etc/init.d/90zram");
                         cmd.su.runWaitFor("busybox mount -o remount,ro /system");
                 }
+            }
+        });
+
+        // Wlan Tether hack
+        mTetherHack = (Switch) view.findViewById(R.id.tether_hack);
+        mTetherHack.setChecked(preferences.getBoolean(TETHER_HACK, false));
+        mTetherHack.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton v, boolean checked) {
+                final SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(TETHER_HACK, checked);
+                editor.commit();
+
+                CMDProcessor cmd = new CMDProcessor();
+                    cmd.su.runWaitFor("busybox iptables -tnat -A natctrl_nat_POSTROUTING -s 192.168.43.0/24 -o rmnet0 -j MASQUERADE");
             }
         });
 
