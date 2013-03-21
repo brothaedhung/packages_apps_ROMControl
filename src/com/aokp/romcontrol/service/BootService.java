@@ -77,9 +77,7 @@ public class BootService extends Service {
                 CPUSettings.GPU_OC, true)?"1":"0";
 
             if (gpu_octemp == "1") {
-                     cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_on");
-                } else {
-                     cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_off");
+                cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_on");
             }
 
             // ZRAM
@@ -87,15 +85,11 @@ public class BootService extends Service {
                 CPUSettings.ZRAM, false)?"1":"0";
 
             if (zram_temp == "1") {
-                        cmd.su.runWaitFor("busybox mount -o remount,rw /system");
-                        cmd.su.runWaitFor("busybox sh /system/etc/90zramSH");
-                        cmd.su.runWaitFor("busybox cp -f /system/etc/90zram /system/etc/init.d/90zram");
-                        cmd.su.runWaitFor("busybox chmod 755 /system/etc/init.d/90zram");
-                        cmd.su.runWaitFor("busybox mount -o remount,ro /system");
-                } else {
-                        cmd.su.runWaitFor("busybox mount -o remount,rw /system");
-                        cmd.su.runWaitFor("busybox rm -f /system/etc/init.d/90zram");
-                        cmd.su.runWaitFor("busybox mount -o remount,ro /system");
+                cmd.su.runWaitFor("busybox mount -o remount,rw /system");
+                cmd.su.runWaitFor("busybox sh /system/etc/90zramSH");
+                cmd.su.runWaitFor("busybox cp -f /system/etc/90zram /system/etc/init.d/90zram");
+                cmd.su.runWaitFor("busybox chmod 755 /system/etc/init.d/90zram");
+                cmd.su.runWaitFor("busybox mount -o remount,ro /system");
             }
 
             // Increase min audio freq
@@ -105,12 +99,16 @@ public class BootService extends Service {
             cmd.su.runWaitFor("busybox echo " + audiofreqtemp + 
                 " > " + CPUSettings.AUDIOFREQ_PATH);
 
-            // Wlan Tether hack
+            // Wlan, BT and USB tether hack
             final String tetherhacktemp = preferences.getBoolean(
                 CPUSettings.TETHER_HACK, false)?"1":"0";
 
             if (tetherhacktemp == "1") {
-                cmd.su.runWaitFor("busybox iptables -tnat -A natctrl_nat_POSTROUTING -s 192.168.43.0/24 -o rmnet0 -j MASQUERADE");
+                cmd.su.runWaitFor("busybox mount -o remount,rw /system");
+                cmd.su.runWaitFor("busybox sh /system/etc/50tetherhackSH");
+                cmd.su.runWaitFor("busybox cp -f /system/etc/50tetherhack /system/etc/init.d/50tetherhack");
+                cmd.su.runWaitFor("busybox chmod 755 /system/etc/init.d/50tetherhack");
+                cmd.su.runWaitFor("busybox mount -o remount,ro /system");
             }
 
 /*            // Smartdimmer

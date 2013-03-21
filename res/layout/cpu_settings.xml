@@ -94,7 +94,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/audiofreq_summary"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:scrollHorizontally="true" />
         <View
             android:layout_width="fill_parent"
             android:layout_marginTop="10dip"
@@ -125,7 +126,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/zram_summary"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:scrollHorizontally="true" />
         <View
             android:layout_width="fill_parent"
             android:layout_marginTop="10dip"
@@ -156,7 +158,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tether_hack_summary"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:scrollHorizontally="true" />
         <View
             android:layout_width="fill_parent"
             android:layout_marginTop="10dip"

@@ -1009,7 +1009,7 @@ s will display</string>
     <string name="audiofreq_summary">Set minimum frequency from 51 (OFF) to 204MHz (ON) while audio is playing.</string>
     <string name="zram">ZRAM</string>
     <string name="zram_summary">Enables ZRAM (swap) and set it on boot. To disable it, you need to reboot also.</string>
-    <string name="tether_hack">Wlan tether hack</string>
+    <string name="tether_hack">Tethering hack (Wlan, BT, Usb)</string>
     <string name="tether_hack_summary">Some carriers blocks your data connection for sharing it, this hack tricks the carrier.</string>
 <!--    <string name="smartdimmer">Smartdimmer</string> -->
     <string name="semdocwife">Semdoc\'s wife</string>

@@ -183,7 +183,7 @@ public class CPUSettings extends Fragment {
             }
         });
 
-        // Wlan Tether hack
+        // Wlan, BT and USB tether hack
         mTetherHack = (Switch) view.findViewById(R.id.tether_hack);
         mTetherHack.setChecked(preferences.getBoolean(TETHER_HACK, false));
         mTetherHack.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -198,11 +198,20 @@ public class CPUSettings extends Fragment {
 
                 if (tether_hacktemp == "1") {
                     CMDProcessor cmd = new CMDProcessor();
-                        cmd.su.runWaitFor("busybox iptables -tnat -A natctrl_nat_POSTROUTING -s 192.168.43.0/24 -o rmnet0 -j MASQUERADE");
-                    Toast.makeText(getActivity(), "Wlan tethering hack enabled!!!", Toast.LENGTH_LONG).show();
+                        cmd.su.runWaitFor("busybox mount -o remount,rw /system");
+                        cmd.su.runWaitFor("busybox sh /system/etc/50tetherhackSH");
+                        cmd.su.runWaitFor("busybox cp -f /system/etc/50tetherhack /system/etc/init.d/50tetherhack");
+                        cmd.su.runWaitFor("busybox chmod 755 /system/etc/init.d/50tetherhack");
+                        cmd.su.runWaitFor("busybox mount -o remount,ro /system");
+                    Toast.makeText(getActivity(), "Tethering hack enabled and set on boot!!!", Toast.LENGTH_LONG).show();
                 }
                 if (tether_hacktemp == "0") {
-                    Toast.makeText(getActivity(), "Wlan tethering hack will be disabled upon next reboot!!!", Toast.LENGTH_LONG).show();
+                     CMDProcessor cmd = new CMDProcessor();
+                        cmd.su.runWaitFor("busybox mount -o remount,rw /system");
+                        cmd.su.runWaitFor("busybox sh /system/etc/50tetherhackSH_OFF");
+                        cmd.su.runWaitFor("busybox rm -f /system/etc/init.d/50tetherhack");
+                        cmd.su.runWaitFor("busybox mount -o remount,ro /system");
+                    Toast.makeText(getActivity(), "Tethering hack is disabled and removed from boot!!!", Toast.LENGTH_LONG).show();
                 }
             }
         });
