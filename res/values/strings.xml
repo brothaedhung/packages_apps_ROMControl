@@ -1024,8 +1024,8 @@ s will display</string>
     <string name="lockscreen_seethrough_summary">Allows you to see your homescreen behind the lock screen including apps.</string>
 
     <!-- Camera lockscreen widget -->
-    <string name="camera_widget">Lockscreen Camera widget</string>
-    <string name="camera_widget_summary">Allows you to disable camera widget in losckscreen.</string>
+    <string name="camera_widget_hide">Disable lockscreen camera</string>
+    <string name="camera_widget_hide_summary">Allows you to disable camera widget in lockscreen.</string>
 
     <!-- Status bar notification icon opacity -->
     <string name="status_bar_icon_opacity">Notification icon opacity</string>
