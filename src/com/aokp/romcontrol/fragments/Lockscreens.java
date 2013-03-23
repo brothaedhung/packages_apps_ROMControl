@@ -95,6 +95,7 @@ public class Lockscreens extends Fragment implements
     private Button mLockTextColorButton;
     private Switch mLockHideStatusbarInfoSwitch;
     private Switch mLockSeeThroughSwitch;
+    private Switch mLockCameraWidgetHideSwitch;
 
     private TextView mLongPressText;
     private TextView mLockTextColorText;
@@ -109,6 +110,7 @@ public class Lockscreens extends Fragment implements
     private TextView mLockUnlimitedWidgetsText;
     private TextView mLockHideStatusbarInfoText;
     private TextView mLockSeeThroughText;
+    private TextView mLockCameraWidgetHideText;
 
     private ShortcutPickerHelper mPicker;
     private String[] targetActivities = new String[8];
@@ -365,6 +367,19 @@ public class Lockscreens extends Fragment implements
                     }
                 });
 
+        mLockCameraWidgetHideText = ((TextView) getActivity().findViewById(R.id.lockscreen_camera_widget_hide_id));
+        mLockCameraWidgetHideText.setOnClickListener(mLockCameraWidgetHideTextListener);
+        mLockCameraWidgetHideSwitch = (Switch) getActivity().findViewById(R.id.lockscreen_camera_widget_hide_switch);
+        mLockCameraWidgetHideSwitch
+                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton v, boolean checked) {
+                        Settings.System.putBoolean(cr,
+                                Settings.System.CAMERA_WIDGET_HIDE, checked);
+                        updateSwitches();
+                    }
+                });
+
         mLongPressText = ((TextView) getActivity()
                 .findViewById(R.id.lockscreen_target_longpress_id));
         mLongPressText.setOnClickListener(mLongPressTextListener);
@@ -487,6 +502,14 @@ public class Lockscreens extends Fragment implements
         }
     };
 
+    private TextView.OnClickListener mLockCameraWidgetHideTextListener = new TextView.OnClickListener() {
+        public void onClick(View v) {
+            createMessage(
+                    getResources().getString(R.string.lockscreen_camera_widget_hide_title),
+                    getResources().getString(R.string.lockscreen_camera_widget_hide_summary));
+        }
+    };
+
     private void updateSwitches() {
         mLockBatterySwitch.setChecked(Settings.System.getBoolean(cr,
                 Settings.System.LOCKSCREEN_BATTERY, false));
@@ -510,6 +533,8 @@ public class Lockscreens extends Fragment implements
                 Settings.System.NAVIGATION_BAR_STATUS_HIDE_LOCKSCREEN_INFO, false));
         mLockSeeThroughSwitch.setChecked(Settings.System.getBoolean(cr,
                 Settings.System.LOCKSCREEN_SEE_THROUGH, false));
+        mLockCameraWidgetHideSwitch.setChecked(Settings.System.getBoolean(cr,
+                Settings.System.CAMERA_WIDGET_HIDE, false));
     }
 
     private void setDrawables() {
@@ -926,6 +951,7 @@ public class Lockscreens extends Fragment implements
             mLockUnlimitedWidgetsSwitch.setVisibility(View.VISIBLE);
             mLockHideStatusbarInfoSwitch.setVisibility(View.VISIBLE);
             mLockSeeThroughSwitch.setVisibility(View.VISIBLE);
+            mLockCameraWidgetHideSwitch.setVisibility(View.VISIBLE);
             mLongPressText.setVisibility(View.VISIBLE);
             mLockBatteryText.setVisibility(View.VISIBLE);
             mLockRotateText.setVisibility(View.VISIBLE);
@@ -940,6 +966,7 @@ public class Lockscreens extends Fragment implements
             mLockTextColorButton.setVisibility(View.VISIBLE);
             mLockHideStatusbarInfoText.setVisibility(View.VISIBLE);
             mLockSeeThroughText.setVisibility(View.VISIBLE);
+            mLockCameraWidgetHideText.setVisibility(View.VISIBLE);
             mHelperText.setText(getResources().getString(R.string.lockscreen_options_info));
         } else {
             mLongPressStatus.setVisibility(View.GONE);
@@ -954,6 +981,7 @@ public class Lockscreens extends Fragment implements
             mLockUnlimitedWidgetsSwitch.setVisibility(View.GONE);
             mLockHideStatusbarInfoSwitch.setVisibility(View.GONE);
             mLockSeeThroughSwitch.setVisibility(View.GONE);
+            mLockCameraWidgetHideSwitch.setVisibility(View.GONE);
             mLongPressText.setVisibility(View.GONE);
             mLockBatteryText.setVisibility(View.GONE);
             mLockRotateText.setVisibility(View.GONE);
@@ -968,6 +996,7 @@ public class Lockscreens extends Fragment implements
             mLockTextColorButton.setVisibility(View.GONE);
             mLockHideStatusbarInfoText.setVisibility(View.GONE);
             mLockSeeThroughText.setVisibility(View.GONE);
+            mLockCameraWidgetHideText.setVisibility(View.GONE);
             mHelperText.setText(getResources().getString(R.string.lockscreen_target_info));
         }
     }
