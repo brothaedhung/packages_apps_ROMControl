@@ -1019,10 +1019,6 @@ s will display</string>
     <string name="bj">BJ (Free)</string>
     <string name="bj_summary">Get a free BJ when ever you want.</string>
 
-    <!-- Lockscreen See Through -->
-    <string name="lockscreen_seethrough">Lockscreen See through</string>
-    <string name="lockscreen_seethrough_summary">Allows you to see your homescreen behind the lock screen including apps.</string>
-
     <!-- Status bar notification icon opacity -->
     <string name="status_bar_icon_opacity">Notification icon opacity</string>
     <string name="status_bar_icon_opacity_summary">Sets opacity of status bar notification icons</string>
