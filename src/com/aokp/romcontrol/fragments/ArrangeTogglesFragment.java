@@ -14,8 +14,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.ViewTreeObserver;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -155,17 +153,7 @@ public class ArrangeTogglesFragment extends DialogFragment implements OnItemClic
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        
-        // layout sizes are not available at this point
-		final ViewTreeObserver observer= mAddToggles.getViewTreeObserver();
-        observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-            	adjustWindowSize();
-            	ViewTreeObserver obs = mAddToggles.getViewTreeObserver();
-        		obs.removeGlobalOnLayoutListener(this);
-            }
-        });
+        adjustWindowSize();
     }
 
     private void adjustWindowSize() {
