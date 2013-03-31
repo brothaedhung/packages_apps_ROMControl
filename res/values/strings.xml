@@ -312,6 +312,8 @@
     <string name="advanced_toggle_summary">Allows short and longpress actions</string>
     <string name="action_toggle_title">Toggle Actions</string>
     <string name="action_toggle_summary">Toggle sequence from left to right</string>
+    <string name="screenshot_delay_title">Screenshot delay</string>
+    <string name="screenshot_delay_summary">Delay to use after long pressing the screenshot toggle</string>
     <string name="no_dclick">No action</string>
     <string name="back_one_dclick">Reverse state</string>
     <string name="state_one_dclick">Set to state one</string>
@@ -503,6 +505,7 @@
     <string name="interface_navring_settings_title">Navigation Ring</string>
     <string name="interface_navring_settings_summary">@null</string>
     <string name="navring_target_info">Drag your finger to targets to assign actions</string>
+    <string name="navring_clear">Clear action</string>
     <string name="navring_short">Short action</string>
     <string name="navring_long">Long action</string>
     <string name="navring_icon">Custom icon</string>
