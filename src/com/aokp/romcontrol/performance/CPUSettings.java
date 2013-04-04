@@ -38,9 +38,10 @@ import java.util.Comparator;
 
 import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
+import com.aokp.romcontrol.service.CodeReceiver;
+import com.aokp.romcontrol.util.AbstractAsyncSuCMDProcessor;
 import com.aokp.romcontrol.util.CMDProcessor;
 import com.aokp.romcontrol.util.Helpers;
-import com.aokp.romcontrol.util.Executable;
 import com.aokp.romcontrol.service.CodeReceiver;
 
 
@@ -93,8 +94,7 @@ public class CPUSettings extends Fragment {
                 editor.putBoolean(SWIPE2WAKE, checked);
                 editor.commit();
 
-                CMDProcessor cmd = new CMDProcessor();
-                    cmd.su.runWaitFor("busybox echo " + (checked?"1":"0") + " > " + SWIPE2WAKE_PATH);
+                CMDProcessor.runSuCommand("busybox echo " + (checked?"1":"0") + " > " + SWIPE2WAKE_PATH);
             }
         });
 */
@@ -113,13 +113,11 @@ public class CPUSettings extends Fragment {
                 GPU_OC, true)?"1":"0";
 
                 if (gpu_ocscript == "1") {
-                    CMDProcessor cmd = new CMDProcessor();
-                        cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_on");
+                    CMDProcessor.runSuCommand("busybox sh /system/etc/gpu_oc_on");
                     Toast.makeText(getActivity(), "GPU speed set to 520Mhz!!!", Toast.LENGTH_LONG).show();
                 } 
                 if (gpu_ocscript == "0") {
-                     CMDProcessor cmd = new CMDProcessor();
-                        cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_off");
+                     CMDProcessor.runSuCommand("busybox sh /system/etc/gpu_oc_off");
                      Toast.makeText(getActivity(), "GPU speed set to 416Mhz!!!", Toast.LENGTH_LONG).show();
                 }
             }
@@ -139,13 +137,11 @@ public class CPUSettings extends Fragment {
                 AUDIOFREQ, false)?"1":"0";
 
                 if (audiofreqtemp == "1") {
-                    CMDProcessor cmd = new CMDProcessor();
-                        cmd.su.runWaitFor("busybox echo " + "204000" + " > " + AUDIOFREQ_PATH);
+                    CMDProcessor.runSuCommand("busybox echo " + "204000" + " > " + AUDIOFREQ_PATH);
                 Toast.makeText(getActivity(), "Speed while playing audio set to 204Mhz!!!", Toast.LENGTH_LONG).show();
                 }
                 if (audiofreqtemp == "0") {
-                    CMDProcessor cmd = new CMDProcessor();
-                        cmd.su.runWaitFor("busybox echo " + "51000" + " > " + AUDIOFREQ_PATH);
+                    CMDProcessor.runSuCommand("busybox echo " + "51000" + " > " + AUDIOFREQ_PATH);
                 Toast.makeText(getActivity(), "Speed while playing audio set to 51Mhz!!!", Toast.LENGTH_LONG).show();
                 }
             }
@@ -165,19 +161,17 @@ public class CPUSettings extends Fragment {
                 ZRAM, false)?"1":"0";
 
                 if (zram_script == "1") {
-                    CMDProcessor cmd = new CMDProcessor();
-                        cmd.su.runWaitFor("busybox mount -o remount,rw /system");
-                        cmd.su.runWaitFor("busybox sh /system/etc/90zramSH");
-                        cmd.su.runWaitFor("busybox cp -f /system/etc/90zram /system/etc/init.d/90zram");
-                        cmd.su.runWaitFor("busybox chmod 755 /system/etc/init.d/90zram");
-                        cmd.su.runWaitFor("busybox mount -o remount,ro /system");
+                    CMDProcessor.runSuCommand("busybox mount -o remount,rw /system");
+                    CMDProcessor.runSuCommand("busybox sh /system/etc/90zramSH");
+                    CMDProcessor.runSuCommand("busybox cp -f /system/etc/90zram /system/etc/init.d/90zram");
+                    CMDProcessor.runSuCommand("busybox chmod 755 /system/etc/init.d/90zram");
+                    CMDProcessor.runSuCommand("busybox mount -o remount,ro /system");
                     Toast.makeText(getActivity(), "ZRAM enabled and set on boot!!!", Toast.LENGTH_LONG).show();
                 } 
                 if (zram_script == "0") {
-                     CMDProcessor cmd = new CMDProcessor();
-                        cmd.su.runWaitFor("busybox mount -o remount,rw /system");
-                        cmd.su.runWaitFor("busybox rm -f /system/etc/init.d/90zram");
-                        cmd.su.runWaitFor("busybox mount -o remount,ro /system");
+                     CMDProcessor.runSuCommand("busybox mount -o remount,rw /system");
+                     CMDProcessor.runSuCommand("busybox rm -f /system/etc/init.d/90zram");
+                     CMDProcessor.runSuCommand("busybox mount -o remount,ro /system");
                     Toast.makeText(getActivity(), "ZRAM script deleted, please reboot!!!", Toast.LENGTH_LONG).show();
                 }
             }
@@ -197,20 +191,18 @@ public class CPUSettings extends Fragment {
                 TETHER_HACK, false)?"1":"0";
 
                 if (tether_hacktemp == "1") {
-                    CMDProcessor cmd = new CMDProcessor();
-                        cmd.su.runWaitFor("busybox mount -o remount,rw /system");
-                        cmd.su.runWaitFor("busybox sh /system/etc/50tetherhackSH");
-                        cmd.su.runWaitFor("busybox cp -f /system/etc/50tetherhack /system/etc/init.d/50tetherhack");
-                        cmd.su.runWaitFor("busybox chmod 755 /system/etc/init.d/50tetherhack");
-                        cmd.su.runWaitFor("busybox mount -o remount,ro /system");
+                    CMDProcessor.runSuCommand("busybox mount -o remount,rw /system");
+                    CMDProcessor.runSuCommand("busybox sh /system/etc/50tetherhackSH");
+                    CMDProcessor.runSuCommand("busybox cp -f /system/etc/50tetherhack /system/etc/init.d/50tetherhack");
+                    CMDProcessor.runSuCommand("busybox chmod 755 /system/etc/init.d/50tetherhack");
+                    CMDProcessor.runSuCommand("busybox mount -o remount,ro /system");
                     Toast.makeText(getActivity(), "Tethering hack enabled and set on boot!!!", Toast.LENGTH_LONG).show();
                 }
                 if (tether_hacktemp == "0") {
-                     CMDProcessor cmd = new CMDProcessor();
-                        cmd.su.runWaitFor("busybox mount -o remount,rw /system");
-                        cmd.su.runWaitFor("busybox sh /system/etc/50tetherhackSH_OFF");
-                        cmd.su.runWaitFor("busybox rm -f /system/etc/init.d/50tetherhack");
-                        cmd.su.runWaitFor("busybox mount -o remount,ro /system");
+                    CMDProcessor.runSuCommand("busybox mount -o remount,rw /system");
+                    CMDProcessor.runSuCommand("busybox sh /system/etc/50tetherhackSH_OFF");
+                    CMDProcessor.runSuCommand("busybox rm -f /system/etc/init.d/50tetherhack");
+                    CMDProcessor.runSuCommand("busybox mount -o remount,ro /system");
                     Toast.makeText(getActivity(), "Tethering hack is disabled and removed from boot!!!", Toast.LENGTH_LONG).show();
                 }
             }
@@ -226,8 +218,7 @@ public class CPUSettings extends Fragment {
                 editor.putBoolean(SMARTDIMMER, checked);
                 editor.commit();
 
-                CMDProcessor cmd = new CMDProcessor();
-                    cmd.su.runWaitFor("busybox echo " + (checked?"1":"0") + " > " + SMARTDIMMER_PATH);
+                CMDProcessor.runSuCommand("busybox echo " + (checked?"1":"0") + " > " + SMARTDIMMER_PATH);
             }
         });
 */

@@ -69,7 +69,6 @@ import com.aokp.romcontrol.R;
 import com.aokp.romcontrol.service.CodeReceiver;
 import com.aokp.romcontrol.util.AbstractAsyncSuCMDProcessor;
 import com.aokp.romcontrol.util.CMDProcessor;
-import com.aokp.romcontrol.util.Executable;
 import com.aokp.romcontrol.util.Helpers;
 import com.aokp.romcontrol.widgets.AlphaSeekBar;
 

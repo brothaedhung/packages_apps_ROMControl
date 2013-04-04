@@ -18,11 +18,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
-
 import com.aokp.romcontrol.performance.CPUSettings;
+import com.aokp.romcontrol.service.CodeReceiver;
+import com.aokp.romcontrol.util.AbstractAsyncSuCMDProcessor;
 import com.aokp.romcontrol.util.CMDProcessor;
 import com.aokp.romcontrol.util.Helpers;
+import com.aokp.romcontrol.service.CodeReceiver;
 
 public class BootService extends Service {
 
@@ -53,7 +56,6 @@ public class BootService extends Service {
         @Override
         protected Void doInBackground(Void... args) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
-            final CMDProcessor cmd = new CMDProcessor();
 
             if (HeadphoneService.getUserHeadphoneAudioMode(c) != -1
                     || HeadphoneService.getUserBTAudioMode(c) != -1) {
@@ -68,7 +70,7 @@ public class BootService extends Service {
             final String swipe2waketemp = preferences.getBoolean(
                 CPUSettings.SWIPE2WAKE, false)?"1":"0";
 
-            cmd.su.runWaitFor("busybox echo " + swipe2waketemp + 
+            CMDProcessor.runSuCommand("busybox echo " + swipe2waketemp + 
                 " > " + CPUSettings.SWIPE2WAKE_PATH);
 */
 
@@ -77,7 +79,7 @@ public class BootService extends Service {
                 CPUSettings.GPU_OC, true)?"1":"0";
 
             if (gpu_octemp == "1") {
-                cmd.su.runWaitFor("busybox sh /system/etc/gpu_oc_on");
+                CMDProcessor.runSuCommand("busybox sh /system/etc/gpu_oc_on");
             }
 
             // ZRAM
@@ -85,18 +87,18 @@ public class BootService extends Service {
                 CPUSettings.ZRAM, false)?"1":"0";
 
             if (zram_temp == "1") {
-                cmd.su.runWaitFor("busybox mount -o remount,rw /system");
-                cmd.su.runWaitFor("busybox sh /system/etc/90zramSH");
-                cmd.su.runWaitFor("busybox cp -f /system/etc/90zram /system/etc/init.d/90zram");
-                cmd.su.runWaitFor("busybox chmod 755 /system/etc/init.d/90zram");
-                cmd.su.runWaitFor("busybox mount -o remount,ro /system");
+                CMDProcessor.runSuCommand("busybox mount -o remount,rw /system");
+                CMDProcessor.runSuCommand("busybox sh /system/etc/90zramSH");
+                CMDProcessor.runSuCommand("busybox cp -f /system/etc/90zram /system/etc/init.d/90zram");
+                CMDProcessor.runSuCommand("busybox chmod 755 /system/etc/init.d/90zram");
+                CMDProcessor.runSuCommand("busybox mount -o remount,ro /system");
             }
 
             // Increase min audio freq
             final String audiofreqtemp = preferences.getBoolean(
                 CPUSettings.AUDIOFREQ, false)?"204000":"51000";
 
-            cmd.su.runWaitFor("busybox echo " + audiofreqtemp + 
+            CMDProcessor.runSuCommand("busybox echo " + audiofreqtemp + 
                 " > " + CPUSettings.AUDIOFREQ_PATH);
 
             // Wlan, BT and USB tether hack
@@ -104,18 +106,18 @@ public class BootService extends Service {
                 CPUSettings.TETHER_HACK, false)?"1":"0";
 
             if (tetherhacktemp == "1") {
-                cmd.su.runWaitFor("busybox mount -o remount,rw /system");
-                cmd.su.runWaitFor("busybox sh /system/etc/50tetherhackSH");
-                cmd.su.runWaitFor("busybox cp -f /system/etc/50tetherhack /system/etc/init.d/50tetherhack");
-                cmd.su.runWaitFor("busybox chmod 755 /system/etc/init.d/50tetherhack");
-                cmd.su.runWaitFor("busybox mount -o remount,ro /system");
+                CMDProcessor.runSuCommand("busybox mount -o remount,rw /system");
+                CMDProcessor.runSuCommand("busybox sh /system/etc/50tetherhackSH");
+                CMDProcessor.runSuCommand("busybox cp -f /system/etc/50tetherhack /system/etc/init.d/50tetherhack");
+                CMDProcessor.runSuCommand("busybox chmod 755 /system/etc/init.d/50tetherhack");
+                CMDProcessor.runSuCommand("busybox mount -o remount,ro /system");
             }
 
 /*            // Smartdimmer
             final String smartdimmertemp = preferences.getBoolean(
                 CPUSettings.SMARTDIMMER, false)?"1":"0";
 
-            cmd.su.runWaitFor("busybox echo " + smartdimmertemp + 
+            CMDProcessor.runSuCommand("busybox echo " + smartdimmertemp + 
                 " > " + CPUSettings.SMARTDIMMER_PATH);
 */
 
