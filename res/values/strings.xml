@@ -1154,6 +1154,11 @@
     <string name="xposed_netflix_title">Netflix Workaround</string>
     <string name="xposed_netflix_summary">Netflix workaround for Exynos4 devices on AOSP 4.2.1+ Activate module to use</string>
     <string name="xposed_warning_title">Warning:</string>
-    <string name="xposed_warning_summary">These mods may adversely affect performance and stability. Use at your own risk!</string> 
+    <string name="xposed_warning_summary">These mods may adversely affect performance and stability. Use at your own risk!</string>
+
+
+    <!-- Auto-Hide Status Bar -->
+    <string name="auto_hide_statusbar">Auto Hide statusbar</string>
+    <string name="auto_hide_statusbar_summary">Statusbar hides itself when there are no notifications</string>
 
 </resources>

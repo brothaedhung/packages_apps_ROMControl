@@ -106,6 +106,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity";
     private static final String KEY_MISSED_CALL_BREATH = "missed_call_breath";
     private static final CharSequence PREF_LOCKSCREEN_WALLPAPER = "lockscreen_wallpaper";
+    private static final String STATUS_BAR_AUTO_HIDE = "status_bar_auto_hide"; 
 
     private static final int REQUEST_PICK_WALLPAPER = 201;
     //private static final int REQUEST_PICK_CUSTOM_ICON = 202; //unused
@@ -143,6 +144,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     ListPreference mCrtMode;
     CheckBoxPreference mCrtOff;
     ListPreference mStatusBarIconOpacity;
+    private CheckBoxPreference mStatusBarAutoHide; 
     private CheckBoxPreference mMissedCallBreath;
 
     private AnimationDrawable mAnimationPart1;
@@ -270,6 +272,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, 140);
         mStatusBarIconOpacity.setValue(String.valueOf(iconOpacity));
         mStatusBarIconOpacity.setOnPreferenceChangeListener(this);
+
+        mStatusBarAutoHide = (CheckBoxPreference) findPreference(STATUS_BAR_AUTO_HIDE);
+        mStatusBarAutoHide.setChecked(Settings.System.getBoolean(mContentResolver,
+                Settings.System.AUTO_HIDE_STATUSBAR, false));
 
         mMissedCallBreath = (CheckBoxPreference) findPreference(KEY_MISSED_CALL_BREATH);
         mMissedCallBreath.setChecked(Settings.System.getBoolean(mContentResolver,
@@ -540,6 +546,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         } else if (preference == mCrtOff) {
             Settings.System.putBoolean(mContentResolver,
                     Settings.System.SYSTEM_POWER_ENABLE_CRT_OFF,
+                    ((TwoStatePreference) preference).isChecked());
+            return true;
+        } else if (preference == mStatusBarAutoHide) {
+            Settings.System.putBoolean(mContentResolver,
+                    Settings.System.AUTO_HIDE_STATUSBAR, 
                     ((TwoStatePreference) preference).isChecked());
             return true;
         } else if (preference == mMissedCallBreath) {
