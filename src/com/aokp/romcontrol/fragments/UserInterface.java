@@ -284,8 +284,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 Settings.System.MISSED_CALL_BREATH, false));
 
         mClassicRecents = (CheckBoxPreference) findPreference(KEY_CLASSIC_RECENTS);
-        boolean classicRecents = Settings.System.getInt(mContentResolver,
-                Settings.System.CLASSIC_RECENTS_MENU, 0);
+        boolean classicRecents = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.CLASSIC_RECENTS_MENU, 0) == 1; 
         mClassicRecents.setChecked(classicRecents);
         mClassicRecents.setOnPreferenceChangeListener(this); 
 
