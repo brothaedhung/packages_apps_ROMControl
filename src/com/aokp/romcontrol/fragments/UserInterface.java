@@ -106,7 +106,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String KEY_STATUS_BAR_ICON_OPACITY = "status_bar_icon_opacity";
     private static final String KEY_MISSED_CALL_BREATH = "missed_call_breath";
     private static final CharSequence PREF_LOCKSCREEN_WALLPAPER = "lockscreen_wallpaper";
-    private static final String STATUS_BAR_AUTO_HIDE = "status_bar_auto_hide"; 
+    private static final String STATUS_BAR_AUTO_HIDE = "status_bar_auto_hide";
+    private static final String KEY_CLASSIC_RECENTS = "classic_recents";
 
     private static final int REQUEST_PICK_WALLPAPER = 201;
     //private static final int REQUEST_PICK_CUSTOM_ICON = 202; //unused
@@ -146,6 +147,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     ListPreference mStatusBarIconOpacity;
     private CheckBoxPreference mStatusBarAutoHide; 
     private CheckBoxPreference mMissedCallBreath;
+    private CheckBoxPreference mClassicRecents;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -280,6 +282,12 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mMissedCallBreath = (CheckBoxPreference) findPreference(KEY_MISSED_CALL_BREATH);
         mMissedCallBreath.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.MISSED_CALL_BREATH, false));
+
+        mClassicRecents = (CheckBoxPreference) findPreference(KEY_CLASSIC_RECENTS);
+        boolean classicRecents = Settings.System.getInt(mContentResolver,
+                Settings.System.CLASSIC_RECENTS_MENU, 0);
+        mClassicRecents.setChecked(classicRecents);
+        mClassicRecents.setOnPreferenceChangeListener(this); 
 
         // hide option if device is already set to never wake up
         if(!mContext.getResources().getBoolean(
@@ -1045,6 +1053,11 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_NOTIF_ICON_OPACITY, iconOpacity);
             return true; 
+        } else if (preference == mClassicRecents) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.CLASSIC_RECENTS_MENU,
+                    (Boolean) newValue ? 1 : 0);
+            mClassicRecents.setChecked((Boolean)newValue); 
         }
         return false;
     }
