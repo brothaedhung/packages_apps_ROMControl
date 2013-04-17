@@ -381,7 +381,6 @@ public class Navbar extends AOKPPreferenceFragment implements
             Settings.System.putBoolean(mContentRes,
                     Settings.System.NAVIGATION_BAR_ALLCOLOR,
                     ((CheckBoxPreference) preference).isChecked() ? true : false);
-            return true;
         } else if (preference == mNavBarHideEnable) {
             Settings.System.putBoolean(mContentRes,
                     Settings.System.NAV_HIDE_ENABLE,
