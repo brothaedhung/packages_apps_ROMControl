@@ -45,6 +45,7 @@
     <string name="title_weather">Weather Settings</string>
     <string name="title_installer">Installer Settings</string>
     <string name="title_clipboard_share">Share to Clipboard</string>
+    <string name="mgerrit_activity_name">mGerrit</string>
     <string name="title_hardware_keys">Hardware Keys</string>
     <string name="title_lockscreen_buttons">Locscreen Buttons Actions</string>
     <string name="title_xposed_settings">Xposed Framework</string>
