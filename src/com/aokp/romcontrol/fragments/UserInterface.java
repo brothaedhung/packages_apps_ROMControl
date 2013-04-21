@@ -560,6 +560,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putBoolean(mContentResolver,
                     Settings.System.AUTO_HIDE_STATUSBAR, 
                     ((TwoStatePreference) preference).isChecked());
+            Helpers.restartSystemUI();
             return true;
         } else if (preference == mMissedCallBreath) {
             Settings.System.putBoolean(mContentResolver,
