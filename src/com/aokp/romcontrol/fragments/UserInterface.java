@@ -108,7 +108,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_LOCKSCREEN_WALLPAPER = "lockscreen_wallpaper";
     private static final String STATUS_BAR_AUTO_HIDE = "status_bar_auto_hide";
     private static final String KEY_CLASSIC_RECENTS = "classic_recents";
-    private static final String KEY_HIDDEN_STATUSBAR_PULLDOWN = "hidden_statusbar_pulldown"; 
 
     private static final int REQUEST_PICK_WALLPAPER = 201;
     //private static final int REQUEST_PICK_CUSTOM_ICON = 202; //unused
@@ -149,7 +148,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mStatusBarAutoHide; 
     private CheckBoxPreference mMissedCallBreath;
     private CheckBoxPreference mClassicRecents;
-    private CheckBoxPreference mHiddenStatusbarPulldown; 
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -289,13 +287,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         boolean classicRecents = Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.CLASSIC_RECENTS_MENU, 0) == 1; 
         mClassicRecents.setChecked(classicRecents);
-        mClassicRecents.setOnPreferenceChangeListener(this);
-
-        mHiddenStatusbarPulldown = (CheckBoxPreference) findPreference(KEY_HIDDEN_STATUSBAR_PULLDOWN);
-        boolean hiddenStatusbar = Settings.System.getInt(getActivity().getContentResolver(),
-                Settings.System.HIDDEN_STATUSBAR_PULLDOWN, 0) == 1;
-        mHiddenStatusbarPulldown.setChecked(classicRecents);
-        mHiddenStatusbarPulldown.setOnPreferenceChangeListener(this);
+        mClassicRecents.setOnPreferenceChangeListener(this); 
 
         // hide option if device is already set to never wake up
         if(!mContext.getResources().getBoolean(
@@ -1066,12 +1058,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.CLASSIC_RECENTS_MENU,
                     (Boolean) newValue ? 1 : 0);
-            mClassicRecents.setChecked((Boolean)newValue);
-        } else if (preference == mHiddenStatusbarPulldown) {
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.HIDDEN_STATUSBAR_PULLDOWN,
-                    (Boolean) newValue ? 1 : 0);
-            mHiddenStatusbarPulldown.setChecked((Boolean)newValue);
+            mClassicRecents.setChecked((Boolean)newValue); 
         }
         return false;
     }
