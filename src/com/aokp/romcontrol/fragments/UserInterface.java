@@ -107,7 +107,6 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String KEY_MISSED_CALL_BREATH = "missed_call_breath";
     private static final CharSequence PREF_LOCKSCREEN_WALLPAPER = "lockscreen_wallpaper";
     private static final String KEY_CLASSIC_RECENTS = "classic_recents";
-    private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden"; 
 
     private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
     private static final CharSequence PREF_STATUSBAR_AUTO_EXPAND_HIDDEN = "statusbar_auto_expand_hidden";
