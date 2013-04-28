@@ -1223,4 +1223,8 @@
     <string name="show_classic_recents">Classic Recents</string>
     <string name="show_classic_recents_summary">Show Gingerbread styled recents menu</string> 
 
+    <!-- Hidden Statusbar Pulldown -->
+    <string name="hidden_statusbar_pulldown_title">Hidden Statusbar Pulldown</string>
+    <string name="hidden_statusbar_pulldown_summary">Allows Statusbar to be pulled down when hidden</string> 
+
 </resources>
