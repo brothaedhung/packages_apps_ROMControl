@@ -82,7 +82,7 @@
             android:entryValues="@array/hidden_statusbar_pulldown_timeout_values"
             android:title="@string/hidden_statusbar_pulldown_timeout_title"
             android:summary="@string/hidden_statusbar_pulldown_timeout_summary"
-            android:dependency="hidden_statusbar_pulldown" /> 
+            android:dependency="statusbar_swipe_for_fullscreen" />
 
         <CheckBoxPreference
             android:key="ime_switcher"
