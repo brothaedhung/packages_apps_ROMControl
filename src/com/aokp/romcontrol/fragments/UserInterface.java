@@ -112,6 +112,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_STATUSBAR_AUTO_EXPAND_HIDDEN = "statusbar_auto_expand_hidden";
     private static final CharSequence PREF_STATUSBAR_SWIPE_FOR_FULLSCREEN = "statusbar_swipe_for_fullscreen";
     private static final String HIDDEN_STATUSBAR_PULLDOWN_TIMEOUT = "hidden_statusbar_pulldown_timeout";
+    private static final String NOTIFICATION_SHADE_DIM = "notification_shade_dim";
     
     private static final int REQUEST_PICK_WALLPAPER = 201;
     //private static final int REQUEST_PICK_CUSTOM_ICON = 202; //unused
@@ -155,6 +156,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mStatusBarAutoExpandHidden;
     CheckBoxPreference mStatusBarSwipeForFullscreen;
     ListPreference mHiddenStatusbarPulldownTimeout;
+    CheckBoxPreference mNotificationShadeDim; 
     
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -307,9 +309,15 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 
         mClassicRecents = (CheckBoxPreference) findPreference(KEY_CLASSIC_RECENTS);
         boolean classicRecents = Settings.System.getInt(getActivity().getContentResolver(),
-                Settings.System.CLASSIC_RECENTS_MENU, 0) == 1; 
+                Settings.System.CLASSIC_RECENTS_MENU, 0) == 1;
         mClassicRecents.setChecked(classicRecents);
-        mClassicRecents.setOnPreferenceChangeListener(this); 
+        mClassicRecents.setOnPreferenceChangeListener(this);
+
+        mNotificationShadeDim = (CheckBoxPreference) findPreference(NOTIFICATION_SHADE_DIM);
+        boolean notificationDim = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.NOTIFICATION_SHADE_DIM, 0) == 1; 
+        mNotificationShadeDim.setChecked(notificationDim);
+        mNotificationShadeDim.setOnPreferenceChangeListener(this);
 
         // hide option if device is already set to never wake up
         if(!mContext.getResources().getBoolean(
@@ -1118,7 +1126,12 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.CLASSIC_RECENTS_MENU,
                     (Boolean) newValue ? 1 : 0);
-            mClassicRecents.setChecked((Boolean)newValue); 
+            mClassicRecents.setChecked((Boolean)newValue);
+        } else if (preference == mNotificationShadeDim) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NOTIFICATION_SHADE_DIM,
+                    (Boolean) newValue ? 1 : 0);
+            mNotificationShadeDim.setChecked((Boolean)newValue);
         }
         return false;
     }

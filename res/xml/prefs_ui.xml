@@ -85,6 +85,11 @@
             android:dependency="statusbar_swipe_for_fullscreen" />
 
         <CheckBoxPreference
+            android:key="notification_shade_dim"
+            android:title="@string/notification_shade_dim_title"
+            android:summary="@string/notification_shade_dim_summary" />
+
+        <CheckBoxPreference
             android:key="ime_switcher"
             android:title="@string/ime_switcher_title"
             android:summary="@string/ime_switcher_summary"
@@ -103,7 +108,7 @@
             android:key="missed_call_breath"
             android:title="@string/missed_call_breath"
             android:summary="@string/missed_call_breath_summary"
-            android:defaultValue="false" /> 
+            android:defaultValue="false" />
 
     </PreferenceCategory>
 
