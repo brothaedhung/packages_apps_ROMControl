@@ -110,7 +110,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 
     private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
     private static final CharSequence PREF_STATUSBAR_AUTO_EXPAND_HIDDEN = "statusbar_auto_expand_hidden";
-    private static final CharSequence PREF_STATUSBAR_SWIPE_FOR_FULLSCREEN = "statusbar_swipe_for_fullscreen";
+    private static final CharSequence PREF_STATUSBAR_SWIPE_ENABLE = "statusbar_swipe_enable";
     private static final String STATUSBAR_SWIPE_TIMEOUT = "statusbar_swipe_timeout";
     private static final String NOTIFICATION_SHADE_DIM = "notification_shade_dim";
     
@@ -154,7 +154,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mClassicRecents;
     CheckBoxPreference mStatusBarHide;
     CheckBoxPreference mStatusBarAutoExpandHidden;
-    CheckBoxPreference mStatusBarSwipeForFullscreen;
+    CheckBoxPreference mStatusBarSwipeEnable;
     ListPreference mHiddenStatusbarPulldownTimeout;
     CheckBoxPreference mNotificationShadeDim; 
     
@@ -258,9 +258,9 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mStatusBarAutoExpandHidden.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.STATUSBAR_AUTO_EXPAND_HIDDEN, false));
         
-        mStatusBarSwipeForFullscreen = (CheckBoxPreference) findPreference(PREF_STATUSBAR_SWIPE_FOR_FULLSCREEN);
-        mStatusBarSwipeForFullscreen.setChecked(Settings.System.getBoolean(mContentResolver,
-                Settings.System.STATUSBAR_SWIPE_FOR_FULLSCREEN, false));
+        mStatusBarSwipeEnable = (CheckBoxPreference) findPreference(PREF_STATUSBAR_SWIPE_ENABLE);
+        mStatusBarSwipeEnable.setChecked(Settings.System.getBoolean(mContentResolver,
+                Settings.System.STATUSBAR_SWIPE_ENABLE, false));
 
         mHiddenStatusbarPulldownTimeout = (ListPreference) findPreference(STATUSBAR_SWIPE_TIMEOUT);
         int uiHiddenTimeout = Settings.System.getInt(mContentResolver,
@@ -597,10 +597,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putBoolean(getActivity().getContentResolver(),
                     Settings.System.STATUSBAR_AUTO_EXPAND_HIDDEN, checked);
             return true;
-        } else if (preference == mStatusBarSwipeForFullscreen) {
+        } else if (preference == mStatusBarSwipeEnable) {
             boolean checked = ((CheckBoxPreference)preference).isChecked();
             Settings.System.putBoolean(getActivity().getContentResolver(),
-                    Settings.System.STATUSBAR_SWIPE_FOR_FULLSCREEN, checked);
+                    Settings.System.STATUSBAR_SWIPE_ENABLE, checked);
             return true;
         } else if (preference == mMissedCallBreath) {
             Settings.System.putBoolean(mContentResolver,
