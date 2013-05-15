@@ -217,7 +217,7 @@ public class DensityChanger extends AOKPPreferenceFragment implements
         Helpers.getMount("rw");
         CommandResult cr = CMDProcessor.runSuCommand("grep persist.lcd_density /system/build.prop");
         // not exists yet
-        if (cr.getStdout() == null) {
+        if (cr.getStdout().length() == 0) {
           CMDProcessor.runSuCommand("echo 'persist.lcd_density=" + newDensity + "' >> /system/build.prop");
         // set existing value
         } else {
@@ -258,5 +258,3 @@ public class DensityChanger extends AOKPPreferenceFragment implements
         }
     }
 }
-
-
