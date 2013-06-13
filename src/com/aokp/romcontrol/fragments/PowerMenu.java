@@ -1,4 +1,3 @@
-
 package com.aokp.romcontrol.fragments;
 
 import android.content.res.Resources;
@@ -7,16 +6,13 @@ import android.os.RemoteException;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.provider.Settings;
-import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
 import android.view.WindowManagerGlobal;
 
 import com.aokp.romcontrol.AOKPPreferenceFragment;
 import com.aokp.romcontrol.R;
-import com.aokp.romcontrol.R.xml;
 
 public class PowerMenu extends AOKPPreferenceFragment implements OnPreferenceChangeListener {
 
@@ -57,7 +53,8 @@ public class PowerMenu extends AOKPPreferenceFragment implements OnPreferenceCha
         } catch (SettingNotFoundException e) {
             mShowPowerSaver.setEnabled(false);
             mShowPowerSaver
-                    .setSummary("You need to enable power saver before you can see it in the power menu.");
+                    .setSummary("You need to enable power saver before you can see it in the
+                    power menu.");
         }
         mShowPowerSaver.setChecked(powerSaverVal != 0); */
 
