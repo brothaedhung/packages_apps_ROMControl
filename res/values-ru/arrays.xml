@@ -333,12 +333,6 @@
         <item>**insert**</item>
         <item>**remove**</item>
     </string-array>
-    <string-array name="ribbon_chooser_entries">
-        <item>@string/ribbon_lockscreen</item>
-        <item>@string/ribbon_notifications</item>
-        <item>@string/ribbon_quicksettings</item>
-        <item>@string/ribbon_swipe</item>
-    </string-array>
     <string-array name="ribbon_chooser_values">
         <item>0</item>
         <item>1</item>
