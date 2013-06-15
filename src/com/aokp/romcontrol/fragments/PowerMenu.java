@@ -106,6 +106,10 @@ public class PowerMenu extends AOKPPreferenceFragment implements OnPreferenceCha
         } catch (RemoteException e) {
             Log.e(TAG, "Error getting navigation bar status");
         }
+
+        if (!hasTorch) {
+            getPreferenceScreen().removePreference(mShowTorchToggle);
+        }
     }
 
     @Override

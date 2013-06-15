@@ -332,6 +332,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             mStatusbarSliderPreference.setEnabled(false);
             mStatusBarHide.setEnabled(false);
             mStatusBarAutoExpandHidden.setEnabled(false);
+            mNotificationWallpaper.setEnabled(false);
+            mWallpaperAlpha.setEnabled(false);
         } else {
             mHideExtras.setEnabled(false);
         }
@@ -1122,6 +1124,12 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.STATUSBAR_AUTO_EXPAND_HIDDEN, false);
             }   
              
+            mNotificationWallpaper.setEnabled(val == 1 ? false : true);
+            if (val == 1) {
+                mWallpaperAlpha.setEnabled(false);
+            } else {
+                findWallpaperStatus();
+            }
             mHideExtras.setEnabled(val == 1 ? true : false);
             if (val != 1){
                 mHideExtras.setChecked(false);
