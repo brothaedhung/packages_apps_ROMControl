@@ -197,7 +197,15 @@
             android:key="classic_recents"
             android:title="@string/show_classic_recents"
             android:summary="@string/show_classic_recents_summary"
-            android:defaultValue="false" /> 
+            android:defaultValue="false" />
+
+        <ListPreference
+            android:key="pref_recents_style"
+            android:icon="@drawable/ic_rb_recents"
+            android:title="@string/recent_kill_all"
+            android:entries="@array/recents_style_entries"
+            android:entryValues="@array/recents_style_values"
+            android:defaultValue="0" />
 
     </PreferenceCategory>
 

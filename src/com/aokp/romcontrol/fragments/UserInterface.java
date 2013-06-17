@@ -107,6 +107,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final String KEY_MISSED_CALL_BREATH = "missed_call_breath";
     private static final CharSequence PREF_LOCKSCREEN_WALLPAPER = "lockscreen_wallpaper";
     private static final String KEY_CLASSIC_RECENTS = "classic_recents";
+    private static final String PREF_RECENTS_STYLE = "pref_recents_style";
 
     private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
     private static final CharSequence PREF_STATUSBAR_AUTO_EXPAND_HIDDEN = "statusbar_auto_expand_hidden";
@@ -152,6 +153,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     ListPreference mStatusBarIconOpacity;
     private CheckBoxPreference mMissedCallBreath;
     private CheckBoxPreference mClassicRecents;
+    private ListPreference mRecentStyle;
     CheckBoxPreference mStatusBarHide;
     CheckBoxPreference mStatusBarAutoExpandHidden;
     CheckBoxPreference mStatusBarSwipeEnable;
@@ -314,6 +316,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 Settings.System.CLASSIC_RECENTS_MENU, 0) == 1;
         mClassicRecents.setChecked(classicRecents);
         mClassicRecents.setOnPreferenceChangeListener(this);
+
+        mRecentStyle = (ListPreference) findPreference(PREF_RECENTS_STYLE);
+        int RecentStyle = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.RECENTS_STYLE, 0);
+        mRecentStyle.setValue(String.valueOf(RecentStyle));
+        mRecentStyle.setSummary(mRecentStyle.getEntry());
+        mRecentStyle.setOnPreferenceChangeListener(this);
 
         mNotificationShadeDim = (CheckBoxPreference) findPreference(NOTIFICATION_SHADE_DIM);
         boolean notificationDim = Settings.System.getInt(getActivity().getContentResolver(),
@@ -1168,6 +1177,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                     Settings.System.NOTIFICATION_SHADE_DIM,
                     (Boolean) newValue ? 1 : 0);
             mNotificationShadeDim.setChecked((Boolean)newValue);
+        } else if (preference == mRecentStyle) {
+            int recentstyle = Integer.valueOf((String) newValue);
+            int index = mRecentStyle.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.RECENTS_STYLE, recentstyle);
+            mRecentStyle.setSummary(mRecentStyle.getEntries()[index]);
+            return true;
         }
         return false;
     }
