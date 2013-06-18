@@ -1041,8 +1041,8 @@
     <string name="status_bar_battery_status_cyanogenmod_circle_percentage">CyanogenMod Circle with percentage</string>
     <string name="status_bar_battery_status_dotted_circle_percentage">Dotted Circle with percentage</string>
     <string name="status_bar_battery_status_dotted_circle">Dotted Circle</string>
-    <string name="speed_battery">SpeedoMeter 1</string>
-    <string name="square_battery">SpeedoMeter 2</string> 
+    <string name="speed1_battery">SpeedoMeter 1</string>
+    <string name="speed2_battery">SpeedoMeter 2</string> 
     <string name="circle_battery_color">Circle color</string>
     <string name="circle_battery_text_color">Circle text color</string>
     <string name="circle_battery_animation_speed">Circle animation speed</string>
