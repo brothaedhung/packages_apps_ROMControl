@@ -235,8 +235,8 @@
 	<item>@string/status_bar_battery_status_cyanogenmod_circle_percentage</item>
         <item>@string/status_bar_battery_status_dotted_circle</item>
         <item>@string/status_bar_battery_status_dotted_circle_percentage</item>
-        <item>@string/speed_battery</item>
-        <item>@string/square_battery</item> 
+        <item>@string/speed1_battery</item>
+        <item>@string/speed2_battery</item> 
         <item>@string/dont_show</item>
     </string-array>
     <string-array name="battery_icon_values" translatable="false">
