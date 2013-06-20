@@ -199,7 +199,6 @@
     <string name="display_cat">Display</string>
     <string name="recents_cat">Recents</string>
     <string name="tabletUI_cat">Tablet UI</string>
-    <string name="enable_volume_options">Enable Volume panel</string>
     <string name="status_bar_notif_count_title">Show notification count</string>
     <string name="status_bar_notif_count_summary">Display number of pending notifications in the Statusbar</string>
     <string name="vibrate_notif_expand_title">Vibrate on expand</string>

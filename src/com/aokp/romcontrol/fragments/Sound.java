@@ -20,7 +20,6 @@ import com.aokp.romcontrol.service.HeadphoneService;
 public class Sound extends AOKPPreferenceFragment
         implements OnPreferenceChangeListener {
 
-    private static final String PREF_ENABLE_VOLUME_OPTIONS = "enable_volume_options";
     private static final String PREF_HEADPHONES_PLUGGED_ACTION = "headphone_audio_mode";
     private static final String PREF_BT_CONNECTED_ACTION = "bt_audio_mode";
     private static final String PREF_FLIP_ACTION = "flip_mode";
@@ -30,7 +29,6 @@ public class Sound extends AOKPPreferenceFragment
     private static final String PREF_LESS_NOTIFICATION_SOUNDS = "less_notification_sounds";
 
     SharedPreferences prefs;
-    CheckBoxPreference mEnableVolumeOptions;
     ListPreference mHeadphonesPluggedAction;
     ListPreference mBTPluggedAction;
     ListPreference mFlipAction;
@@ -46,10 +44,6 @@ public class Sound extends AOKPPreferenceFragment
         addPreferencesFromResource(R.xml.prefs_sound);
         PreferenceManager.setDefaultValues(mContext, R.xml.prefs_sound, true);
         prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-
-        mEnableVolumeOptions = (CheckBoxPreference) findPreference(PREF_ENABLE_VOLUME_OPTIONS);
-        mEnableVolumeOptions.setChecked(Settings.System.getBoolean(mContentRes,
-                Settings.System.ENABLE_VOLUME_OPTIONS, false));
 
         mAnnoyingNotifications = (ListPreference) findPreference(PREF_LESS_NOTIFICATION_SOUNDS);
         mAnnoyingNotifications.setOnPreferenceChangeListener(this);
@@ -86,14 +80,6 @@ public class Sound extends AOKPPreferenceFragment
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
                                          Preference preference) {
-        if (preference == mEnableVolumeOptions) {
-
-            boolean checked = ((CheckBoxPreference) preference).isChecked();
-            Settings.System.putBoolean(mContentRes,
-                    Settings.System.ENABLE_VOLUME_OPTIONS, checked);
-            return true;
-
-        }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
