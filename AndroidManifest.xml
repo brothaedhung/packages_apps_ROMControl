@@ -204,9 +204,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".fragments.Pie" />
-        <activity android:name=".fragments.PieColor" />
-
         <activity
             android:name=".fragments.Xposed"
             android:label="@string/title_xposed_settings" >
