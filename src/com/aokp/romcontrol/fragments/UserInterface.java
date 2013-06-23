@@ -107,6 +107,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_LOCKSCREEN_WALLPAPER = "lockscreen_wallpaper";
     private static final String KEY_CLASSIC_RECENTS = "classic_recents";
     private static final String PREF_RECENTS_STYLE = "pref_recents_style";
+    private static final String PREF_RECENTS_CLEAR = "pref_recents_clear";
 
     private static final CharSequence PREF_STATUSBAR_HIDDEN = "statusbar_hidden";
     private static final CharSequence PREF_STATUSBAR_AUTO_EXPAND_HIDDEN = "statusbar_auto_expand_hidden";
@@ -152,6 +153,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mMissedCallBreath;
     private CheckBoxPreference mClassicRecents;
     private ListPreference mRecentStyle;
+    private ListPreference mRecentClear;
     CheckBoxPreference mStatusBarHide;
     CheckBoxPreference mStatusBarAutoExpandHidden;
     CheckBoxPreference mStatusBarSwipeEnable;
@@ -317,6 +319,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mRecentStyle.setValue(String.valueOf(RecentStyle));
         mRecentStyle.setSummary(mRecentStyle.getEntry());
         mRecentStyle.setOnPreferenceChangeListener(this);
+
+        mRecentClear = (ListPreference) findPreference(PREF_RECENTS_CLEAR);
+        int RecentClear = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.RECENTS_CLEAR, 0);
+        mRecentClear.setValue(String.valueOf(RecentClear));
+        mRecentClear.setSummary(mRecentClear.getEntry());
+        mRecentClear.setOnPreferenceChangeListener(this);
 
         mNotificationShadeDim = (CheckBoxPreference) findPreference(NOTIFICATION_SHADE_DIM);
         boolean notificationDim = Settings.System.getInt(getActivity().getContentResolver(),
@@ -1172,6 +1181,13 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.RECENTS_STYLE, recentstyle);
             mRecentStyle.setSummary(mRecentStyle.getEntries()[index]);
+            return true;
+        } else if (preference == mRecentClear) {
+            int recentclear = Integer.valueOf((String) newValue);
+            int index = mRecentClear.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.RECENTS_CLEAR, recentclear);
+            mRecentClear.setSummary(mRecentClear.getEntries()[index]);
             return true;
         }
         return false;
