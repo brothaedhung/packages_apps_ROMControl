@@ -1181,6 +1181,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.RECENTS_STYLE, recentstyle);
             mRecentStyle.setSummary(mRecentStyle.getEntries()[index]);
+            Helpers.restartSystemUI();
             return true;
         } else if (preference == mRecentClear) {
             int recentclear = Integer.valueOf((String) newValue);
@@ -1188,6 +1189,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.RECENTS_CLEAR, recentclear);
             mRecentClear.setSummary(mRecentClear.getEntries()[index]);
+            Helpers.restartSystemUI();
             return true;
         }
         return false;
