@@ -45,6 +45,14 @@ public class Sound extends AOKPPreferenceFragment
         PreferenceManager.setDefaultValues(mContext, R.xml.prefs_sound, true);
         prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
+        mHeadphonesPluggedAction = (ListPreference) findPreference(PREF_HEADPHONES_PLUGGED_ACTION);
+        mHeadphonesPluggedAction.setOnPreferenceChangeListener(this);
+        mHeadphonesPluggedAction.setValue((prefs.getString(PREF_HEADPHONES_PLUGGED_ACTION, "-1")));
+
+        mBTPluggedAction = (ListPreference) findPreference(PREF_BT_CONNECTED_ACTION);
+        mBTPluggedAction.setOnPreferenceChangeListener(this);
+        mBTPluggedAction.setValue((prefs.getString(PREF_BT_CONNECTED_ACTION, "-1")));
+
         mAnnoyingNotifications = (ListPreference) findPreference(PREF_LESS_NOTIFICATION_SOUNDS);
         mAnnoyingNotifications.setOnPreferenceChangeListener(this);
         mAnnoyingNotifications.setValue(Integer.toString(Settings.System.getInt(mContentRes,
@@ -74,6 +82,19 @@ public class Sound extends AOKPPreferenceFragment
 
         if (FlipService.DEBUG) {
             mContext.startService(new Intent(mContext, FlipService.class));
+        }
+
+        if (!hasVibration) {
+            String[] noVibEntries = {
+                    getResources().getString(R.string.headphones_mode_no_action),
+                    getResources().getString(R.string.headphones_mode_silent)};
+            String[] noVibEntriesValues = {"-1", "0"};
+            mHeadphonesPluggedAction.setEntries(noVibEntries);
+            mHeadphonesPluggedAction.setEntryValues(noVibEntriesValues);
+            mBTPluggedAction.setEntries(noVibEntries);
+            mBTPluggedAction.setEntryValues(noVibEntriesValues);
+            mFlipAction.setEntries(noVibEntries);
+            mFlipAction.setEntryValues(noVibEntriesValues);
         }
     }
 
