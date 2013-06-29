@@ -114,6 +114,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_STATUSBAR_SWIPE_ENABLE = "statusbar_swipe_enable";
     private static final String STATUSBAR_SWIPE_TIMEOUT = "statusbar_swipe_timeout";
     private static final String NOTIFICATION_SHADE_DIM = "notification_shade_dim";
+    private static final String KEY_STATUS_BAR_TRAFFIC = "status_bar_traffic";
     
     private static final int REQUEST_PICK_WALLPAPER = 201;
     //private static final int REQUEST_PICK_CUSTOM_ICON = 202; //unused
@@ -158,7 +159,8 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mStatusBarAutoExpandHidden;
     CheckBoxPreference mStatusBarSwipeEnable;
     ListPreference mHiddenStatusbarPulldownTimeout;
-    CheckBoxPreference mNotificationShadeDim; 
+    CheckBoxPreference mNotificationShadeDim;
+    private CheckBoxPreference mStatusBarTraffic;
     
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -332,6 +334,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 Settings.System.NOTIFICATION_SHADE_DIM, 0) == 1; 
         mNotificationShadeDim.setChecked(notificationDim);
         mNotificationShadeDim.setOnPreferenceChangeListener(this);
+
+        mStatusBarTraffic = (CheckBoxPreference) findPreference(KEY_STATUS_BAR_TRAFFIC);
+        mStatusBarTraffic.setChecked(Settings.System.getBoolean(mContentResolver,
+                Settings.System.STATUS_BAR_TRAFFIC, false));
 
         // hide option if device is already set to never wake up
         if (!mContext.getResources().getBoolean(
@@ -627,7 +633,12 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             return true;
         } else if (preference == mMissedCallBreath) {
             Settings.System.putBoolean(mContentResolver,
-                    Settings.System.MISSED_CALL_BREATH, 
+                    Settings.System.MISSED_CALL_BREATH,
+                    ((TwoStatePreference) preference).isChecked());
+            return true;
+        } else if (preference == mStatusBarTraffic) {
+            Settings.System.putBoolean(mContentResolver,
+                    Settings.System.STATUS_BAR_TRAFFIC,
                     ((TwoStatePreference) preference).isChecked());
             return true;
         } else if (preference == mLockscreenWallpaper) {
